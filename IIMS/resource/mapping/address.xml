@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sqlMap namespace="addresslist">
+
+	<typeAlias alias="AddressVo" type="com.netcruz.iims.vo.AddressVo"/>
+	
+	<insert id="insert" parameterClass="AddressVo">
+		<![CDATA[
+		INSERT INTO 
+			addressbook
+				VALUES
+					(#id#, #category#, #partner#, #pm#, #pm_phone#, #pm_email#,
+					#task#, #equipment#, #engineer#, #engineer_phone#, #engineer_email#,
+					#test_date#, #test_type#, #manager#, #note#, #user_id#);
+		]]>
+	</insert>
+	
+	<select id="list" resultClass="AddressVo">
+		<![CDATA[
+			SELECT *
+				FROM addressbook
+		]]>	
+	</select>
+
+</sqlMap>
