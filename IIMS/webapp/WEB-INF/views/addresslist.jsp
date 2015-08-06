@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.netcruz.iims.vo.AddressVo" %>
 <%@page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -27,7 +28,7 @@
 
 <body>
 	<h1>list</h1>
-		<table>
+		<table ng-app="myApp" ng-controller="UserCtrl">
 			<tr ng-repeat="x in address">
 				<td>{{x.id}}</td>
 				<td>{{x.category}}</td>
@@ -72,7 +73,7 @@
 		</form>
 		
 		<div ng-app="myApp" ng-controller="UserCtrl">
-			{{address.ADDRLIST}}
+			{{address}}
 		</div>
 		
 		<script>

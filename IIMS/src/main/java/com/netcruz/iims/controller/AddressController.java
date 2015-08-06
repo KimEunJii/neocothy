@@ -2,6 +2,7 @@ package com.netcruz.iims.controller;
 
 import java.util.List;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,13 @@ public class AddressController {
 	}
 	
 	@RequestMapping("/addresstest.do")
-	public @ResponseBody JSONObject addressTest(){
-		JSONObject json = new JSONObject();
-		json.put("ADDRLIST", addressService.addressList());
-		
-		return json;
+	public @ResponseBody JSONArray addressTest(){
+//	public @ResponseBody JSONObject addressTest(){
+//		JSONObject json = new JSONObject();
+//		json.put("ADDRLIST", addressService.addressList());
+
+		JSONArray ja = JSONArray.fromObject(addressService.addressList());
+//		System.out.println("[debug]"+ja);
+		return ja;
 	}
 }
