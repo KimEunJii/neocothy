@@ -31,12 +31,21 @@ public class BoardController {
 		
 	}
 	
+//	@RequestMapping( "/index.do" )
+//	public String insert123() {
+//		
+//			
+//		return "index";
+//		
+//	}
+	
 	
 	@RequestMapping( "/list.do" )
 	public String list(Model model) {
 		
 		List<BoardVo> list = boardService.boardList();
 		model.addAttribute("list", list);
+
 		return "index2";
 	}
 	
