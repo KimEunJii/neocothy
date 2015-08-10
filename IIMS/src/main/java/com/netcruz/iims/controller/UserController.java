@@ -28,7 +28,7 @@ public class UserController {
 		UserVo userVo = userService.getUser(user_id,pw);
 		System.out.println("sss");
 		session.setAttribute("userFlag", userVo);
-			return "redirect:/board/list.do";		
+			return "redirect:/user/tem.do";		
 	}
 	
 	@RequestMapping("/tem.do")
