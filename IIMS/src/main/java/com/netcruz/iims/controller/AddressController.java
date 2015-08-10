@@ -40,12 +40,7 @@ public class AddressController {
 	
 	@RequestMapping("/addresstest.do")
 	public @ResponseBody JSONArray addressTest(){
-//	public @ResponseBody JSONObject addressTest(){
-//		JSONObject json = new JSONObject();
-//		json.put("ADDRLIST", addressService.addressList());
-
 		JSONArray ja = JSONArray.fromObject(addressService.addressList());
-//		System.out.println("[debug]"+ja);
 		return ja;
 	}
 }
