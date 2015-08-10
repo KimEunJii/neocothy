@@ -16,12 +16,16 @@
 	<typeAliases>
 		<typeAlias alias="BoardVo" type="com.netcruz.iims.vo.BoardVo" />
 		<typeAlias alias="UserVo" type="com.netcruz.iims.vo.UserVo" />
+		<typeAlias alias="AddressVo" type="com.netcruz.iims.vo.AddressVo" />
+		<typeAlias alias="ManagementVo" type="com.netcruz.iims.vo.ManagementVo" />
 	</typeAliases>
 	
 	 <!-- SQL Definition :: file include -->
 	<mappers>
 		<mapper resource="mapping/BoardMapper.xml"/>
 		<mapper resource="mapping/UserMapper.xml"/>
+		<mapper resource="mapping/AddressMapper.xml"/>
+		<mapper resource="mapping/ManagementMapper.xml"/>
 	</mappers>
 
 </configuration>

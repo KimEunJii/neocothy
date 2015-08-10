@@ -19,7 +19,7 @@ public class UserController {
 	@RequestMapping("/loginForm.do")
 	public String loginForm(){
 		System.out.println("login");
-		return "index";
+		return "login";
 	}
 	
 	@RequestMapping("/login.do")
@@ -28,7 +28,7 @@ public class UserController {
 		UserVo userVo = userService.getUser(user_id,pw);
 		System.out.println("sss");
 		session.setAttribute("userFlag", userVo);
-			return "redirect:/user/tem.do";		
+			return "redirect:/address/list.do";		
 	}
 	
 	@RequestMapping("/tem.do")
