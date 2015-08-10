@@ -4,17 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!-- in angularjs section 
-"https://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid-flexible-height.js"-->
-
-<!-- Content/css section
-"https://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.css" -->
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
-<script src="./js/angular.js"></script>
+	<script src="./js/angular.js"></script>
     
     <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -88,12 +82,15 @@
 			</tr>
 		</table>
 	</div>
-
-	<br>
-	<br>
 	
-	
-	
+	<p align="right">
+		<button class="btn btn-default">
+    		+
+    	</button>
+    </p>
+    
+    <br>
+    <br>
 	
 	<form action="insert.do">
 		id : <input type="text" name="id" />&nbsp category : <input
