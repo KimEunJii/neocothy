@@ -16,21 +16,9 @@ public class ManagementService {
 	@Autowired
 	ManagementDao managementDao;
 	
-	public ManagementVo insertManagement(String category, String date, String equipment, String title,
-			String contents, String note, String user_id){
-				
-		ManagementVo vo = new ManagementVo();
-		vo.setId(0);
-		vo.setCategory(category);
-		vo.setDate(date);
-		vo.setEquipment(equipment);
-		vo.setTitle(title);
-		vo.setContents(contents);
-		vo.setNote(note);
-		vo.setUser_id(user_id);
-		
-		managementDao.work_insert(vo);
-		return vo;
+	public ManagementVo insert(ManagementVo mvo){			
+		managementDao.work_insert(mvo);
+		return mvo;
 	}
 	
 	public List<ManagementVo> work_managementList(){
@@ -62,13 +50,17 @@ public class ManagementService {
 		managementDao.delete(id);		
 	}
 	
-	public void work_update(ManagementVo vo_update){
+	public void update(ManagementVo vo_update){
 		ManagementVo vo = managementDao.getOne(vo_update.getId());
 		vo.setDate(vo_update.getDate());
 		vo.setEquipment(vo_update.getEquipment());
 		vo.setTitle(vo_update.getTitle());
 		vo.setContents(vo_update.getContents());
 		vo.setNote(vo_update.getNote());
-		managementDao.work_update(vo_update);
+		vo.setCompany(vo_update.getCompany());
+		vo.setPeriod_type(vo_update.getPeriod_type());
+		vo.setUser_id(vo_update.getUser_id());		
+		
+		managementDao.update(vo_update);
 	}
 }

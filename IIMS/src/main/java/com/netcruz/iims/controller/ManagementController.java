@@ -24,13 +24,6 @@ public class ManagementController {
 	@Autowired
 	ManagementService managementService;
 	
-	@RequestMapping("/insert.do")
-	public String insert(int no, String category, String date, String equipment, String title,
-			String contents, String note, String period_type, String company, String user_id){		
-
-		
-		return "redirect:/address/list.do";
-	}
 	
 	@RequestMapping("/work_list.do")
 	public String work_list(String category){
@@ -87,39 +80,39 @@ public class ManagementController {
 		return ja;
 	}
 	
-	@RequestMapping("/insertWork.do")
-	public String insertWork(String category,String date, String equipment,String title, 
-			String contents, String note,String user_id){		
-		
-		managementService.insertManagement(category, date, equipment, title, contents, note, user_id);
-		return "redirect:/management/work_list.do";
+	@RequestMapping("/insert.do")
+	public String insertWork(ManagementVo vo){		
+	
+		managementService.insert(vo);
+		if("work".equals(vo.getCategory())){
+			return "redirect:/management/work_list.do";
+		}else if("error".equals(vo.getCategory())){
+			return "redirect:/management/error_list.do";
+		}else if("daily".equals(vo.getCategory())){
+			return "redirect:/management/daily_list.do";
+		}else
+			return "redirect:/management/maintain_list.do";
 	}
 	
-//	@RequestMapping("/getDetail.do")
-//	public @ResponseBody String getDetail(int id){
-//		JSONObject json = new JSONObject();
-//		json.put("getDetail", managementService.getDetail(id));	
-//		return json.toString();
-//		
-//	}
 	
 	@RequestMapping("/delete.do")
-	public String deleteWork(int id){
+	public String deleteManagement(int id){
 		managementService.delete(id);
 		return "redirect:/management/work_list.do";
 	}
 	
-	@RequestMapping("/updateWork.do")
-	public String updateWork(int id, String date, String equipment, String title, String contents, String note){
-		ManagementVo vo = new ManagementVo();
-		vo.setId(id);
-		vo.setDate(date);
-		vo.setEquipment(equipment);
-		vo.setTitle(title);
-		vo.setContents(contents);
-		vo.setNote(note);
-		managementService.work_update(vo);
-		return "redirect:/management/work_list.do";
+	@RequestMapping("/update.do")
+	public String updateManagement(ManagementVo vo){
+		
+		managementService.update(vo);
+		if("work".equals(vo.getCategory())){
+			return "redirect:/management/work_list.do";
+		}else if("error".equals(vo.getCategory())){
+			return "redirect:/management/error_list.do";
+		}else if("daily".equals(vo.getCategory())){
+			return "redirect:/management/daily_list.do";
+		}else
+			return "redirect:/management/maintain_list.do";
 	}
 	
 

@@ -23,11 +23,11 @@
 		
 	</resultMap>
 	
-	<insert 	id="work_insert"		parameterType="ManagementVo" >
+	<insert 	id="insert"		parameterType="ManagementVo" >
 		<![CDATA[
 			insert
-			  into management(id,date,equipment,title,contents,note,user_id,category)
-			values ( #{id},#{date},#{equipment}, #{title}, #{contents}, #{note}, #{user_id},#{category})
+			into management(id,date,equipment,title,contents,note,user_id,category,company,period_type)
+			values ( #{id},#{date},#{equipment}, #{title}, #{contents}, #{note}, #{user_id},#{category},#{company},#{period_type})
 	
 		]]>  
 	</insert>
@@ -56,10 +56,11 @@
 		]]> 	 
 	 </delete>
 	 
-	 <update id="work_update" parameterType="ManagementVo">
+	 <update id="update" parameterType="ManagementVo">
 	 	<![CDATA[
 			 update management
-			 set date = #{date}, equipment = #{equipment}, title = #{title}, contents = #{contents}, note = #{note}
+			 set date = #{date}, equipment = #{equipment}, title = #{title}, contents = #{contents}, note = #{note},
+			     period_type=#{period_type}, company=#{company}, user_id=#{user_id}       
 			 where id = #{id}
 		]]> 
 	 </update>

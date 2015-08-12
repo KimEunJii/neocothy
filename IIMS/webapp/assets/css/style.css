@@ -314,4 +314,8 @@ footer {
 .btn-google {
     background-color: #c32f10;
 }
+.modal-size{
+	width : 500px;
+	height : 500px;
+}
 
