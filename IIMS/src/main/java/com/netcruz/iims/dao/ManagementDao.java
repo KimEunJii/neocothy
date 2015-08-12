@@ -15,11 +15,23 @@ public class ManagementDao {
 	
 	//crud
 	public void work_insert(ManagementVo vo){
-		sqlSession.insert("ManagementMapper.insert",vo);
+		sqlSession.insert("ManagementMapper.work_insert",vo);
 	}
 	
 	public List<ManagementVo> getList(String category){
 		
 		return sqlSession.selectList("ManagementMapper.list",category);
+	}
+	
+	public ManagementVo getOne(int id){
+		return sqlSession.selectOne("ManagementMapper.getOne", id);
+	}
+	
+	public ManagementVo delete(int id){
+		return sqlSession.selectOne("ManagementMapper.delete", id);
+	}
+	
+	public ManagementVo work_update(ManagementVo vo){
+		return sqlSession.selectOne("ManagementMapper.work_update", vo);
 	}
 }

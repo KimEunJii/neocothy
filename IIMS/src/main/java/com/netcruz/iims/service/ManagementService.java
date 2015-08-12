@@ -16,7 +16,7 @@ public class ManagementService {
 	@Autowired
 	ManagementDao managementDao;
 	
-	public ManagementVo insertManagement(int no, String category, String date, String equipment, String title,
+	public ManagementVo insertManagement(String category, String date, String equipment, String title,
 			String contents, String note, String user_id){
 				
 		ManagementVo vo = new ManagementVo();
@@ -51,5 +51,24 @@ public class ManagementService {
 	public List<ManagementVo> maintain_managementList(){
 		List<ManagementVo> work_managementList =  managementDao.getList("maintain");
 		return work_managementList;
+	}
+	
+	public ManagementVo getDetail(int id){
+		ManagementVo vo = managementDao.getOne(id);
+		return vo;
+	}
+	
+	public void delete(int id){
+		managementDao.delete(id);		
+	}
+	
+	public void work_update(ManagementVo vo_update){
+		ManagementVo vo = managementDao.getOne(vo_update.getId());
+		vo.setDate(vo_update.getDate());
+		vo.setEquipment(vo_update.getEquipment());
+		vo.setTitle(vo_update.getTitle());
+		vo.setContents(vo_update.getContents());
+		vo.setNote(vo_update.getNote());
+		managementDao.work_update(vo_update);
 	}
 }

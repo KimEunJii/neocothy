@@ -24,20 +24,44 @@
 	</resultMap>
 	
 	<insert 	id="work_insert"		parameterType="ManagementVo" >
-	<![CDATA[
-		insert
-		  into management
-		values ( #{id},#{date},#{equipment}, #{title}, #{contents}, #{note}, #{user_id},#{category})
+		<![CDATA[
+			insert
+			  into management(id,date,equipment,title,contents,note,user_id,category)
+			values ( #{id},#{date},#{equipment}, #{title}, #{contents}, #{note}, #{user_id},#{category})
 	
 		]]>  
 	</insert>
 	
 	<select 	id="list"	parameterType="String"	resultMap="ManagementSelectMap">
 		<![CDATA[
-		select *
-		 from management
-		 where category = #{category}
+			select *
+			 from management
+			 where category = #{category}
 		]]> 
 	 </select>
+	 
+	 <select 	id="getOne"	parameterType="String"	resultMap="ManagementSelectMap">
+		<![CDATA[
+			select *
+			 from management
+			 where id = #{id}
+		]]> 
+	 </select>
+	 
+	 <delete id="delete" parameterType="Int">
+	 	<![CDATA[
+			 delete 
+			 from management
+			 where id = #{id}
+		]]> 	 
+	 </delete>
+	 
+	 <update id="work_update" parameterType="ManagementVo">
+	 	<![CDATA[
+			 update management
+			 set date = #{date}, equipment = #{equipment}, title = #{title}, contents = #{contents}, note = #{note}
+			 where id = #{id}
+		]]> 
+	 </update>
 
 </mapper>

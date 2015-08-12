@@ -2,9 +2,7 @@ package com.netcruz.iims.controller;
 
 
 import net.sf.json.JSONArray;
-
-
-
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+import org.springframework.web.servlet.ModelAndView;
 
 import com.netcruz.iims.service.ManagementService;
 import com.netcruz.iims.vo.ManagementVo;
@@ -89,11 +88,39 @@ public class ManagementController {
 	}
 	
 	@RequestMapping("/insertWork.do")
-	public ManagementVo insertWork(int no,String category,String date, String equipment,String title, 
-			String contents, String note,String user_id){
+	public String insertWork(String category,String date, String equipment,String title, 
+			String contents, String note,String user_id){		
 		
-		
-		ManagementVo vo = managementService.insertManagement(no, category, date, equipment, title, contents, note, user_id);
-		return vo;
+		managementService.insertManagement(category, date, equipment, title, contents, note, user_id);
+		return "redirect:/management/work_list.do";
 	}
+	
+//	@RequestMapping("/getDetail.do")
+//	public @ResponseBody String getDetail(int id){
+//		JSONObject json = new JSONObject();
+//		json.put("getDetail", managementService.getDetail(id));	
+//		return json.toString();
+//		
+//	}
+	
+	@RequestMapping("/delete.do")
+	public String deleteWork(int id){
+		managementService.delete(id);
+		return "redirect:/management/work_list.do";
+	}
+	
+	@RequestMapping("/updateWork.do")
+	public String updateWork(int id, String date, String equipment, String title, String contents, String note){
+		ManagementVo vo = new ManagementVo();
+		vo.setId(id);
+		vo.setDate(date);
+		vo.setEquipment(equipment);
+		vo.setTitle(title);
+		vo.setContents(contents);
+		vo.setNote(note);
+		managementService.work_update(vo);
+		return "redirect:/management/work_list.do";
+	}
+	
+
 }
