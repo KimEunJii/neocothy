@@ -81,9 +81,26 @@ public class ManagementController {
 	}
 	
 	@RequestMapping("/insert.do")
-	public String insertWork(ManagementVo vo){		
+	public ModelAndView insertWork(ManagementVo vo){		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(managementService.insert(vo));
+		
+		if("work".equals(vo.getCategory())){
+			 mav.setViewName("redirect:/management/work_list.do");
+		}else if("error".equals(vo.getCategory())){
+			 mav.setViewName("redirect:/management/work_list.do");
+		}else if("daily".equals(vo.getCategory())){
+			 mav.setViewName("redirect:/management/work_list.do");
+		}else
+			 mav.setViewName("redirect:/management/work_list.do");
+		
+		return mav;
+	}
 	
-		managementService.insert(vo);
+	
+	@RequestMapping("/delete.do")
+	public String deleteManagement(ManagementVo vo){
+		managementService.delete(vo.getId());
 		if("work".equals(vo.getCategory())){
 			return "redirect:/management/work_list.do";
 		}else if("error".equals(vo.getCategory())){
@@ -92,13 +109,6 @@ public class ManagementController {
 			return "redirect:/management/daily_list.do";
 		}else
 			return "redirect:/management/maintain_list.do";
-	}
-	
-	
-	@RequestMapping("/delete.do")
-	public String deleteManagement(int id){
-		managementService.delete(id);
-		return "redirect:/management/work_list.do";
 	}
 	
 	@RequestMapping("/update.do")

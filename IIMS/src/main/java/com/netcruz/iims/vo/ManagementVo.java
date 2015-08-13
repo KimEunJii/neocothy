@@ -72,6 +72,14 @@ public class ManagementVo {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+	@Override
+	public String toString() {
+		return "ManagementVo [id=" + id + ", category=" + category + ", date="
+				+ date + ", equipment=" + equipment + ", title=" + title
+				+ ", contents=" + contents + ", note=" + note
+				+ ", period_type=" + period_type + ", company=" + company
+				+ ", user_id=" + user_id + "]";
+	}
 	
 	
 	
