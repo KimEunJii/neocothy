@@ -15,11 +15,19 @@ public class UserService {
 		
 		UserVo userVo = userDao.getUser(user_id);
 		String password = userVo.getPassword();
-		
+		System.out.println(userVo);
+	
 		if(pw.equals(password)){
 			return userVo;
 		}
 		else
 			return null;
+	}
+	
+	
+	public UserVo getOne(String user_id) {
+		UserVo user=userDao.getUser(user_id);
+		
+		return user;
 	}
 }

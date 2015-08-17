@@ -35,7 +35,7 @@
                         <li><a href="#">My Profile</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+                <li><a href="/user/logout.do"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
             </ul>
         </div>
     </div>
@@ -46,7 +46,7 @@
 <!-- Main -->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <!-- Left column -->
             <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>
 
@@ -92,7 +92,7 @@
         
         </div>
         <!-- /col-3 -->
-        <div class="col-sm-9">
+        <div class="col-sm-10" >
 
             <!-- column 2 -->
             <ul class="list-inline pull-right">

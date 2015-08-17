@@ -1,22 +1,22 @@
 package com.netcruz.iims.vo;
 
 public class UserVo {
-	String id;
-	String password;
+	String user_id;
+	String pw;
 	String name;
 	String role;
 	
 	public String getId() {
-		return id;
+		return user_id;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String user_id) {
+		this.user_id = user_id;
 	}
 	public String getPassword() {
-		return password;
+		return pw;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String pw) {
+		this.pw = pw;
 	}
 	public String getName() {
 		return name;
@@ -30,6 +30,13 @@ public class UserVo {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	@Override
+	public String toString() {
+		return "UserVo [id=" + user_id + ", password=" + pw + ", name=" + name
+				+ ", role=" + role + "]";
+	}
+	
+	
 	
 	
 }

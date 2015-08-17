@@ -55,3 +55,17 @@ Pseudo ::after element
 	margin-left: 20px;
 	margin-right: 20px;
 }
+.center{
+	text-align: center;
+}
+
+ #table1 {
+    width:84%; 
+    margin-left:8%; 
+    margin-right:8%;
+  }
+  
+  div.container {
+    width:98%; 
+    margin:1%;
+  }

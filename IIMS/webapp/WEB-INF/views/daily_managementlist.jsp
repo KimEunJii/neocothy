@@ -1,3 +1,4 @@
+<%@page import="com.netcruz.iims.vo.UserVo"%>
 <%@page import="com.netcruz.iims.vo.ManagementVo"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.netcruz.iims.vo.AddressVo"%>
@@ -7,7 +8,7 @@
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
+<% UserVo vo = (UserVo)session.getAttribute("userFlag"); %>
 <head>
 	
     
@@ -30,16 +31,17 @@
 <body>
 	
 	
-	<div class="panel">  
-		<div class="input-group" ng-app="myApp" ng-controller="UserCtrl">
+	<div class="panel container">  
+		<div class="input-group" id="table1" ng-app="myApp" ng-controller="UserCtrl">
 		<center>
 			<h1>일지 관리</h1>
 		</center>
-		 <div>
-		 <input type="text" class="form-control"/>
-         <button class="btn btn-default" ng-click="addNewItem(actionText)">검색 </button>
-         </div>
-			<table class="table table-striped">
+<!-- 		 <div> -->
+<!-- 		 <input type="text" class="form-control"/> -->
+<!--          <button class="btn btn-default" ng-click="addNewItem(actionText)">검색 </button> -->
+<!--          </div> -->
+			<div id="table1">
+			<table class="table table-striped center">
 				<tr>
 
 					<td>일자</td>
@@ -62,30 +64,57 @@
 			</table>
 
 
-
-
-			<p align="right">
-				<button class="btn btn-default">+</button>
-			</p>
+			<div align="right">
+			 <% if("master".equals(vo.getRole())){ %>
+				<p>
+					<button class="btn btn-default"  ng-click="do_some_action3()">등록</button>				
+				</p>
+			<%}else if("admin".equals(vo.getRole())) { %>
+				<p>
+					<button class="btn btn-default"  ng-click="do_some_action3()">등록</button>				
+				</p>
+			<%} %>
 
 			<br> <br>
+	</div>
+</div>
 
+			
+			   <div class="modal" id="addWidgetModal3">
+				<div class="modal-dialog modal-size">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h4 class="modal-title">Add Widget</h4>
+						</div>
+						<div class="modal-body">
+						<form action="insert.do" method="post">
 
-			<form action="insert.do">
-
-				일자 : <input type="text" name="date"  />&nbsp; 
-				구분 : <select name="period_type">
-					  <option>일일 업무일지</option>
-					  <option>주간 업무일지</option>
-					  <option>월간 업무일지</option>					  
-					</select>
-				주요업무 : <input type="text" name="title" />&nbsp; 
-				특이사항 : <input type="text" name="contents" />&nbsp; 
-				비고 : <input type="text" name="note" />&nbsp;
-				<input type="hidden" name="category" value="daily"> 
-				<input type="submit" class="btn btn-primary" value="등록" />
-
-			</form>
+							
+							<label>일자</label> 
+							<input type="text" class="form-control" name="date" /> <br> 
+							<label>구분</label> 
+								<select name="period_type">
+								  <option>일일 업무일지</option>
+								  <option>주간 업무일지</option>
+								  <option>월간 업무일지</option>					  
+								</select><br>
+							<label>주요업무</label>
+							<input type="text" class="form-control" name="title" /><br> 
+							<label>특이사항</label>
+							<input type="text" class="form-control" name="contents" /><br> 						
+							<label>비고</label> 
+							<textarea name="note" class="form-control" ></textarea>
+							<input type="hidden" name="category" value="daily"> 						
+							</div>				
+						
+						<div class="modal-footer">							
+							<a href="#" data-dismiss="modal" class="btn">Close</a>							
+							<input type="submit" class="btn btn-primary" value="등록" />
+							</form>
+						</div></div>
+		</div></div>
+			
 
 
 			<div class="modal" id="addWidgetModal">
@@ -117,8 +146,13 @@
 						<div class="modal-footer">
 							
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
+							<% if("master".equals(vo.getRole())){ %>				
 							<button class="btn btn-primary" ng-click="do_some_action2(x)">수정</button>
 							<a href="delete.do?id={{x.id}}&category=daily" class="btn btn-primary">삭제</a>
+							<%}else if("admin".equals(vo.getRole())){  %>
+							<button class="btn btn-primary" ng-click="do_some_action2(x)">수정</button>
+							<a href="delete.do?id={{x.id}}&category=daily" class="btn btn-primary">삭제</a>
+							<%}else %>
 						</div>
 					</div>
 				</div>
@@ -139,7 +173,7 @@
 							<input type="hidden" class="form-control" name="id" value="{{x.id}}" />
 							<label>일지</label> 
 							<input type="text" class="form-control" name="date" value="{{x.date}}" /> <br> 
-							<label>구분</label> 
+							<label>구분</label><br>
 							<select name="period_type" class="form-control" >
 								  <option>일일 업무일지</option>
 								  <option>주간 업무일지</option>
@@ -178,6 +212,13 @@
 						//
 						$scope.management = '';
 						$scope.x = '';
+						
+						$scope.do_some_action3 = function() {
+						
+							$("#addWidgetModal3").modal('show', function() {
+
+							});
+						}
 
 						$scope.do_some_action = function(x) {
 							$scope.x = x;

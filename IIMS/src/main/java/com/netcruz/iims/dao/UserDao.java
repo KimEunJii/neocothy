@@ -12,6 +12,7 @@ public class UserDao {
 	SqlSession sqlSession;
 	
 	public UserVo getUser(String user_id){
+	
 		return sqlSession.selectOne("UserMapper.getUser",user_id);
 	}
 }

@@ -88,11 +88,11 @@ public class ManagementController {
 		if("work".equals(vo.getCategory())){
 			 mav.setViewName("redirect:/management/work_list.do");
 		}else if("error".equals(vo.getCategory())){
-			 mav.setViewName("redirect:/management/work_list.do");
+			 mav.setViewName("redirect:/management/error_list.do");
 		}else if("daily".equals(vo.getCategory())){
-			 mav.setViewName("redirect:/management/work_list.do");
+			 mav.setViewName("redirect:/management/daily_list.do");
 		}else
-			 mav.setViewName("redirect:/management/work_list.do");
+			 mav.setViewName("redirect:/management/maintain_list.do");
 		
 		return mav;
 	}

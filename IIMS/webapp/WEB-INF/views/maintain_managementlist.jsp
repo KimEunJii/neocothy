@@ -1,3 +1,4 @@
+<%@page import="com.netcruz.iims.vo.UserVo"%>
 <%@page import="com.netcruz.iims.vo.ManagementVo"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.netcruz.iims.vo.AddressVo"%>
@@ -7,7 +8,7 @@
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
+<% UserVo vo = (UserVo)session.getAttribute("userFlag"); %>
 <head>
 	
     
@@ -30,63 +31,101 @@
 <body>
 	
 	
-	<div class="panel">  
-		<div class="input-group" ng-app="myApp" ng-controller="UserCtrl">
+	<div class="panel container">  
+		<div class="input-group" id="table1" ng-app="myApp" ng-controller="UserCtrl">
 		<center>
 			<h1>정기점검 관리</h1>
 		</center>
-		 <div>
-		 <input type="text" class="form-control"/>
-         <button class="btn btn-default" ng-click="addNewItem(actionText)">검색 </button>
-         </div>
-			<table class="table table-striped">
-				<tr>
+<!-- 		 <div> -->
+<!-- 		 <input type="text" class="form-control"/> -->
+<!--          <button class="btn btn-default" ng-click="addNewItem(actionText)">검색 </button> -->
+<!--          </div> -->
+			<div id="table1">
+				<table class="table table-striped center">
+					<tr>
 
-					<td>일자</td>
-					<td>회사명</td>
-					<td>점검명</td>
-					<td>점검장비</td>
-					<td>특이사항</td>
-					<td>비고</td>
+						<td>일자</td>
+						<td>회사명</td>
+						<td>점검명</td>
+						<td>점검장비</td>
+						<td>특이사항</td>
+						<td>비고</td>
 
-				</tr>
+					</tr>
 
-				<tr ng-repeat="x in management" data-toggle="modal"
-					ng-click="do_some_action(x)">
-					
-					<td>{{x.date}}</td>
-					<td>{{x.company}}</td>
-					<td>{{x.title}}</td>
-					<td>{{x.equipment}}</td>					
-					<td>{{x.contents}}</td>
-					<td>{{x.note}}</td>
-				</tr>
-			</table>
+					<tr ng-repeat="x in management" data-toggle="modal"
+						ng-click="do_some_action(x)">
 
-
-
-
-			<p align="right">
-				<button class="btn btn-default">+</button>
-			</p>
-
-			<br> <br>
+						<td>{{x.date}}</td>
+						<td>{{x.company}}</td>
+						<td>{{x.title}}</td>
+						<td>{{x.equipment}}</td>
+						<td>{{x.contents}}</td>
+						<td>{{x.note}}</td>
+					</tr>
+				</table>
 
 
-			<form action="insert.do">
+				<div align="right">
+					<%
+						if ("master".equals(vo.getRole())) {
+					%>
+					<p>
+						<button class="btn btn-default" id="plus"
+							ng-click="do_some_action3()">등록</button>
+					</p>
+					<%
+						} else if ("admin".equals(vo.getRole())) {
+					%>
+					<p>
+						<button class="btn btn-default" id="plus"
+							ng-click="do_some_action3()">등록</button>
+					</p>
+					<%
+						}
+					%>
 
-				일자 : <input type="text" name="date"  />&nbsp; 
-				회사명 : <input type="text" name="company"  />&nbsp; 
-				점검명 : <input type="text" name="title" />&nbsp; 
-				점검장비 : <input type="text" name="equipment" />&nbsp; 				
-				특이사항 : <input type="text" name="contents" />&nbsp; 
-				비고 : <input type="text" name="note" />&nbsp;
-				<input type="hidden" name="category" value="maintain"> 
-				<input type="submit" class="btn btn-primary" value="등록" />
-
-			</form>
+					<br> <br>
+				</div>
+			</div>
 
 
+			<div class="modal" id="addWidgetModal3">
+				<div class="modal-dialog modal-size">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h4 class="modal-title">Add Widget</h4>
+						</div>
+						<div class="modal-body">
+						<form action="insert.do" method="post">
+
+							
+							<label>일자</label> 
+							<input type="text" class="form-control" name="date" /> <br> 
+							<label>회사명</label> 
+							<input type="text" class="form-control" name="company" /> <br> 
+							<label>점검명</label>
+							<input type="text" class="form-control" name="title" /><br> 
+							<label>점검장비</label>
+							<input type="text" class="form-control" name="equipment" /><br> 	
+							<label>특이사항</label>
+							<input type="text" class="form-control" name="contents" /><br> 						
+							<label>비고</label> 
+							<textarea name="note" class="form-control" ></textarea>
+							<input type="hidden" name="category" value="maintain"> 						
+							</div>				
+						
+						<div class="modal-footer">							
+							<a href="#" data-dismiss="modal" class="btn">Close</a>							
+							<input type="submit" class="btn btn-primary" value="등록" />
+							</form>
+						</div></div>
+		</div></div>
+			
+
+
+			
 			<div class="modal" id="addWidgetModal">
 				<div class="modal-dialog modal-size">
 					<div class="modal-content">
@@ -118,8 +157,13 @@
 						<div class="modal-footer">
 							
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
+							<% if("master".equals(vo.getRole())){ %>				
 							<button class="btn btn-primary" ng-click="do_some_action2(x)">수정</button>
 							<a href="delete.do?id={{x.id}}&category=maintain" class="btn btn-primary">삭제</a>
+							<%}else if("admin".equals(vo.getRole())){  %>
+							<button class="btn btn-primary" ng-click="do_some_action2(x)">수정</button>
+							<a href="delete.do?id={{x.id}}&category=maintain" class="btn btn-primary">삭제</a>
+							<%}else %>
 						</div>
 					</div>
 				</div>
@@ -176,7 +220,13 @@
 						//
 						$scope.management = '';
 						$scope.x = '';
+						
+						$scope.do_some_action3 = function() {							
+							$("#addWidgetModal3").modal('show', function() {
 
+							});
+						}
+						
 						$scope.do_some_action = function(x) {
 							$scope.x = x;
 							$("#addWidgetModal").modal('show', function() {
