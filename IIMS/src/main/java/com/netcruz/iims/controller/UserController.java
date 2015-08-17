@@ -43,10 +43,9 @@ public class UserController {
 	    		UserVo user = userService.getOne(user_id);
 	    		
 	    		session.setAttribute("userFlag", user);
-	    		return "redirect:/address/list.do";
+	    		return "redirect:/ipinfo/list.do";
 	    	}
-	    	else
-	    	
+	    	else	    	
 	    		return "AlertPage";  		    		
 	}
 	

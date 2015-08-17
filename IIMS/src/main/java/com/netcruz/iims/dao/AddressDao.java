@@ -22,4 +22,17 @@ public class AddressDao {
 		System.out.println("AddressDao.getList");
 		return sqlSession.selectList("AddressMapper.list");
 	}
+	
+	public AddressVo getSelect(int id){
+		System.out.println("getSelect");
+		return sqlSession.selectOne("AddressMapper.get", id);
+	}
+	
+	public AddressVo delete(int id){
+		return sqlSession.selectOne("AddressMapper.delete", id);
+	}
+	
+	public AddressVo update(AddressVo vo){
+		return sqlSession.selectOne("AddressMapper.update", vo);
+	}
 }

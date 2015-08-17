@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="IpinfoMapper">
+	
+
+ 	<resultMap id="ipinfoSelectMap" type="IpinfoVo">
+		<result property="id" column="id" jdbcType="NUMERIC"/>
+		<result property="category" column="category" jdbcType="VARCHAR"/>
+		<result property="network" column="network" jdbcType="VARCHAR"/>
+		<result property="ip" column="ip" jdbcType="VARCHAR"/>
+		<result property="mask" column="mask" jdbcType="NUMERIC"/>
+		<result property="usages" column="usages" jdbcType="VARCHAR"/>
+		<result property="equipment" column="equipment" jdbcType="VARCHAR"/>
+		<result property="model" column="model" jdbcType="VARCHAR"/>
+		<result property="used" column="used" jdbcType="VARCHAR"/>
+		<result property="os" column="os" jdbcType="VARCHAR"/>
+		<result property="use_dept" column="use_dept" jdbcType="VARCHAR"/>
+		<result property="user" column="user" jdbcType="VARCHAR"/>
+		<result property="use_term" column="use_term" jdbcType="VARCHAR"/>
+		<result property="per_date" column="per_date" jdbcType="VARCHAR" />
+		<result property="mody_date" column="mody_date" jdbcType="VARCHAR" />
+		<result property="note" column="note" jdbcType="VARCHAR"/>
+		<result property="user_id" column="user_id" jdbcType="VARCHAR"/>
+		
+	</resultMap>
+	
+	<resultMap type="IpinfoVo" id="ipinfoMap">
+	
+			<result property="id" column="id" jdbcType="NUMERIC"/>
+		<result property="category" column="category" jdbcType="VARCHAR"/>
+		<result property="network" column="network" jdbcType="VARCHAR"/>
+		<result property="ip" column="ip" jdbcType="VARCHAR"/>
+		<result property="mask" column="mask" jdbcType="NUMERIC"/>
+		<result property="usages" column="usages" jdbcType="VARCHAR"/>
+		<result property="equipment" column="equipment" jdbcType="VARCHAR"/>
+		<result property="model" column="model" jdbcType="VARCHAR"/>
+		<result property="used" column="used" jdbcType="VARCHAR"/>
+		<result property="os" column="os" jdbcType="VARCHAR"/>
+		<result property="use_dept" column="use_dept" jdbcType="VARCHAR"/>
+		<result property="user" column="user" jdbcType="VARCHAR"/>
+		<result property="use_term" column="use_term" jdbcType="VARCHAR"/>
+		<result property="per_date" column="per_date" jdbcType="VARCHAR" />
+		<result property="mody_date" column="mody_date" jdbcType="VARCHAR" />
+		<result property="note" column="note" jdbcType="VARCHAR"/>
+		<result property="user_id" column="user_id" jdbcType="VARCHAR"/>
+		
+	</resultMap>
+	
+	
+	<insert 	id="insert"		parameterType="IpinfoVo" >
+	<![CDATA[
+		insert
+		  into ip_info
+		values (#{id}, #{category}, #{network}, #{ip}, #{mask}, #{usages}, #{equipment},
+					#{model}, #{used}, #{os}, #{use_dept}, #{user},
+					#{use_term}, #{per_date}, #{mody_date}, #{note}, #{user_id});
+		
+		]]>  
+	</insert>
+	
+	<select 	id="list"	resultMap="ipinfoSelectMap" parameterType="IpinfoVo">
+		<![CDATA[
+		select id,category,network,ip,mask,usages,equipment,model,used,os,use_dept,user,use_term,per_date,mody_date,note,user_id from ip_info
+		
+		]]> 
+	 </select>
+	 
+	 	 <select 	id="get"	parameterType="int"	resultMap="ipinfoMap">
+		<![CDATA[
+		select *
+		  from ip_info 
+		  where id=#{id}
+		]]> 
+	 </select>
+
+
+	 <delete id="delete" parameterType="Int">
+	 	<![CDATA[
+			 delete 
+			 from ip_info
+			 where id = #{id}
+		]]> 	 
+	 </delete>
+	 
+	 <update id="update" parameterType="IpinfoVo">
+	 	<![CDATA[
+	 		update ip_info
+	 		set category = #{category}, network=#{network}, ip=#{ip}, mask=#{mask}, usages=#{usages}, equipment=#{equipment},
+	 			model= #{model}, used= #{used}, os=#{os}, use_dept=#{use_dept}, user=#{user},
+	 			use_term=#{use_term}, per_date= #{per_date}, mody_date= #{mody_date}, note= #{note}, user_id=#{user_id}
+	 		where id = #{id}   
+		]]>	 
+	 </update>
+</mapper>

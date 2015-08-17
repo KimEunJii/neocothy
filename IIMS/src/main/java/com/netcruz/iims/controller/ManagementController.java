@@ -1,10 +1,18 @@
 package com.netcruz.iims.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.netcruz.iims.service.ManagementService;
 import com.netcruz.iims.vo.ManagementVo;
+import com.netcruz.iims.vo.UserVo;
 
 
 @Controller("managementController")
@@ -27,7 +36,7 @@ public class ManagementController {
 	
 	@RequestMapping("/work_list.do")
 	public String work_list(String category){
-		
+			
 			return "tem.jsp?nextPage=work_managementlist";		
 	}
 	
@@ -112,9 +121,28 @@ public class ManagementController {
 	}
 	
 	@RequestMapping("/update.do")
-	public String updateManagement(ManagementVo vo){
+	public String updateManagement(ManagementVo vo,HttpSession session, HttpServletRequest request){
+		UserVo userFlag = (UserVo)session.getAttribute("userFlag");
+		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy.MM.dd HH:mm:ss", Locale.KOREA );
+		Date today = new Date(); 
+		String dTime = formatter.format ( today );
+		String str = vo.getNote();
 		
+		String[] result = str.split("\\*");
+		String strNote = result[0];
+		//String strEdit = result[1];
+		
+		String str1 = strNote + "*수정자: " + userFlag.getName()+",  수정날짜: "+dTime;
+		
+	
+
+//		
+//		String contents = request.getParameter("contents").replaceAll("\r\n", "<br>");
+		vo.setNote(str1);
+//		vo.setContents(contents);
 		managementService.update(vo);
+	
+		
 		if("work".equals(vo.getCategory())){
 			return "redirect:/management/work_list.do";
 		}else if("error".equals(vo.getCategory())){

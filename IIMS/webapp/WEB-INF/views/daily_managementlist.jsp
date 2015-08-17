@@ -92,9 +92,10 @@
 
 							
 							<label>일자</label> 
-							<input type="text" class="form-control" name="date" /> <br> 
+							<input type="date"  name="date" ng-model="example.value" class="form-control"  
+      						 	placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 							<label>구분</label> 
-								<select name="period_type">
+								<select name="period_type" class="form-control">
 								  <option>일일 업무일지</option>
 								  <option>주간 업무일지</option>
 								  <option>월간 업무일지</option>					  
@@ -137,7 +138,7 @@
 									 {{x.contents}} <br>
 									 <label>비고:</label> 
 									  {{x.note}}
-									<input type="hidden" name="category" value="work">
+							
 								</div>
 							
 							</div>
@@ -171,8 +172,9 @@
 						
 							<form action="update.do">
 							<input type="hidden" class="form-control" name="id" value="{{x.id}}" />
-							<label>일지</label> 
-							<input type="text" class="form-control" name="date" value="{{x.date}}" /> <br> 
+							<label>일자</label> 
+							<input type="date"  name="date" ng-model="example.value" class="form-control"  
+      						 	placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 							<label>구분</label><br>
 							<select name="period_type" class="form-control" >
 								  <option>일일 업무일지</option>

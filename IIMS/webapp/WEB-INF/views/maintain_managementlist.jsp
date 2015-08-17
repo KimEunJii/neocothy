@@ -102,7 +102,8 @@
 
 							
 							<label>일자</label> 
-							<input type="text" class="form-control" name="date" /> <br> 
+							<input type="date"  name="date" ng-model="example.value" class="form-control"  
+      						 	placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 							<label>회사명</label> 
 							<input type="text" class="form-control" name="company" /> <br> 
 							<label>점검명</label>
@@ -183,7 +184,8 @@
 							<form action="update.do">
 							<input type="hidden" class="form-control" name="id" value="{{x.id}}" />
 							<label>일자</label> 
-							<input type="text" class="form-control " name="date" value="{{x.date}}" /> <br> 
+							<input type="date"  name="date" ng-model="example.value" class="form-control"  
+      						 	placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 							<label>회사명</label> 
 							<input type="text" class="form-control" name="date" value="{{x.company}}" /> <br> 
 							<label>점검명</label>
