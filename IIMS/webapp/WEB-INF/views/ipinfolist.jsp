@@ -1,3 +1,4 @@
+<%@page import="com.netcruz.iims.vo.UserVo"%>
 <%@page import="com.netcruz.iims.vo.ManagementVo"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.netcruz.iims.vo.AddressVo"%>
@@ -7,6 +8,9 @@
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<%
+	UserVo vo = (UserVo) session.getAttribute("userFlag");
+%>
 
 <head>
 	
@@ -27,7 +31,7 @@
 
 </head>
 
-<body onLoad="ClipBoardClear()">
+<body>
 	
 	<div class="panel">  
 		<div class="input-group" ng-app="myApp" ng-controller="UserCtrl">
@@ -40,29 +44,29 @@
          </div>
 			<table class="table table-striped">
 				<tr>
-				<td>index</td>
-				<td>분류</td>
-				<td>망 구분</td>
-				<td>IP</td>
-				<td>Mask</td>
-				<td>용도(부서)</td>
-				<td>장비명(사용자)</td>
-				<td>모델명</td>
-				<td>사용여부</td>
-				<td>OS</td>
-				<td>사용부서</td>
-				<td>사용자</td>
-				<td>사용기간</td>
-				<td>승인일자</td>
-				<td>수정일자</td>
-				<td>비고</td>
-				<td>작성자</td>
+				
+				<th>분류</th>
+				<th>망 구분</th>
+				<th>IP</th>
+				<th>Mask</th>
+				<th>용도(부서)</th>
+				<th>장비명(사용자)</th>
+				<th>모델명</th>
+				<th>사용여부</th>
+				<th>OS</th>
+				<th>사용부서</th>
+				<th>사용자</th>
+				<th>사용기간</th>
+				<th>승인일자</th>
+				<th>수정일자</th>
+				<th>비고</th>
+				<th>작성자</th>
 			</tr>
 
 				<tr ng-repeat="x in ipinfo" data-toggle="modal"
 					ng-click="do_some_action(x)" id="ipinfotable">
 					
-				<td>{{x.id}}</td>
+				
 				<td>{{x.category}}</td>
 				<td>{{x.network}}</td>
 				<td>{{x.ip}}</td>
@@ -79,45 +83,84 @@
 				<td>{{x.mody_date}}</td>
 				<td>{{x.note}}</td>
 				<td>{{x.user_id}}</td>
-			</tr>
+			</tr>		
+		</table>
+
+
+<div align="right">
+	<%
+						if ("master".equals(vo.getRole())) {
+					%>
+					<p>
+						<button class="btn btn-default" id="plus"
+							ng-click="do_some_action3()">등록</button>
+					</p>
+					<%
+						} else if ("admin".equals(vo.getRole())) {
+					%>
+					<p>
+						<button class="btn btn-default" id="plus"
+							ng-click="do_some_action3()">등록</button>
+					</p>
+					<%
+						}
+					%>
+</div>
+
+<div class="modal" id="addWidgetModal3">
+	<div class="modal-dialog modal-size">
+		<div class="modal-content">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">Add Widget</h4>
+					</div>
+		<div class="modal-body">
+		<form action="insert.do" method="post">
 		
-			</table>
-
-
-
-
-			<p align="right">
-				<button class="btn btn-default" id="plus">+</button>
-			</p>
-
-			<br> <br>
-
-
-			<form action="insert.do" method="post">
-
-		id : <input type="text" name="id" />&nbsp; 
-		분류 : <input type="text" name="category" />&nbsp; 
-		망구분 : <input type="text" name="network" />&nbsp; 
-		아이피 : <input type="text" name="ip" />&nbsp; 
-		mask : <input type="text" name="mask" />&nbsp; 
-		용도(부서) : <input type="text" name="usages" />&nbsp;<br> 
-		장비명(사용자) : <input type="text" name="equipment" />&nbsp;
-	    모델명 : <input type="text" name="model" />&nbsp; 
-	    사용여부 : <input type="text" name="used" />&nbsp; 
-		OS : <input type="text" name="os" />&nbsp;
-		사용부서 : <input type="text" name="use_dept" />&nbsp; 
-		사용자 : <input type="text" name="user" /><br> <br> 
-		사용기간 : <input type="text" name="use_term" />&nbsp; 
-		승인일자 : <input type="text" name="per_date" />&nbsp; 
-		수정일자 : <input type="text" name="mody_date" />&nbsp;
-		비고 : <input type="text" name="note" />&nbsp;
-		등록자 : <input type="text" name="user_id"/>
-		<input type="submit" value="등록"><br> 
+		
+		<label>분류</label>
+		<input type="text" class="form-control" name="category"/><br>
+		<label>망구분</label>
+		<input type="text" class="form-control" name="network"/><br>
+		<label>아이피</label> 
+		<input type="text" class="form-control" name="ip"/><br>
+		<label>mask</label>
+		<input type="text" class="form-control" name="mask"/><br>
+		<label>용도(부서)</label>
+		<input type="text" class="form-control" name="usages"/><br>
+		<label>장비명(사용자)</label>
+		<input type="text" class="form-control" name="equipment" /><br>
+		<label>모델명</label>
+	    <input type="text" class="form-control" name="model" /><br>
+	    <label>사용여부</label>
+	    <input type="text" class="form-control" name="used" /><br>
+	    <label>OS</label>
+		<input type="text" class="form-control" name="os" /><br>
+		<label>사용부서</label>
+		<input type="text" class="form-control" name="use_dept" /><br>
+		<label>사용자</label>
+		<input type="text" class="form-control" name="user" /><br>
+		<label>사용기간</label>
+		<input type="text" class="form-control"  name="use_term" /><br>
+		<label>승인일자</label> 
+		<input type="text" class="form-control" name="per_date" /><br>
+		<label>수정일자</label> 
+		<input type="text" class="form-control" name="mody_date" /><br>
+		<label>비고</label>
+		<input type="text" class="form-control" name="note" /><br>
+		<label>등록자</label>
+		<input type="text" class="form-control" name="user_id"/><br>
+		
+	
+			<a href="#" data-dismiss="modal" class="btn">Close</a>							
+			<input type="submit" class="btn btn-primary" value="등록" />
 		</form>
+		
+			</div>
+		</div>
+	</div>
+</div>
 
-<!-- 			<input type="submit" class="btn btn-primary" value="등록" /> -->
-
-<!-- 			</form> -->
 
 
 			<div class="modal" id="addWidgetModal">
@@ -125,7 +168,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">세부사항</h4>
 						</div>
 						<div class="modal-body">
 						id: {{x.id}} <br>
@@ -151,9 +194,22 @@
 						
 						<div class="modal-footer">
 							
-							<a href="#" data-dismiss="modal" class="btn">Close</a>							
+								<a href="#" data-dismiss="modal" class="btn">Close</a>
+							<%
+								if ("master".equals(vo.getRole())) {
+							%>
 							<button class="btn btn-primary" ng-click="do_some_action2(x)">수정</button>
-							<a href="delete.do?id={{x.id}}" class="btn btn-primary">삭제</a>
+							<a href="delete.do?id={{x.id}}"
+								class="btn btn-primary">삭제</a>
+							<%
+								} else if ("admin".equals(vo.getRole())) {
+							%>
+							<button class="btn btn-primary" ng-click="do_some_action2(x)">수정</button>
+							<a href="delete.do?id={{x.id}}"
+								class="btn btn-primary">삭제</a>
+							<%
+								} else
+							%>
 						</div>
 					</div>
 				</div>
@@ -166,22 +222,22 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">수정</h4>
 						</div>
 						<div class="modal-body margin1">
 						
-							<form action="update.do" method="post">
+							<form action="update.do">
 							<input type="hidden" class="form-control" name="id" value="{{x.id}}" />
 							<label>분류</label> 
 							<input type="text" class="form-control" name="category" value="{{x.category}}" /> <br> 
 							<label>망구분</label> 
-							<input type="text" class="form-control" name="equipment" value="{{x.equipment}}"  /> <br>
+							<input type="text" class="form-control" name="network" value="{{x.network}}"  /> <br>
 							<label>아이피</label>
 							<input type="text" class="form-control" name="ip" value="{{x.ip}}" /><br> 
 							<label>mask</label> 
-							<input name="text" class="form-control" name="mask" value="{{x.mask}}"/><br>
+							<input type="text" class="form-control" name="mask" value="{{x.mask}}"/><br>
 							<label>용도(부서)</label> 
-							<input name="text" class="form-control"  name="usages" value="{{x.usages}}"/><br>
+							<input type="text" class="form-control"  name="usages" value="{{x.usages}}"/><br>
 							<label>장비명(사용자)</label>
 							<input type="text" class="form-control" name="equipment" value="{{x.equipment}}"/><br>
 							<label>모델명</label>
@@ -208,9 +264,10 @@
 						</div>
 						
 						
-						<div class="modal-footer">
-							<a href="#" data-dismiss="modal" class="btn">Close</a>							
-							<input type="submit" class="btn btn-primary"  value="완료"/>
+					<div class="modal-footer">
+							<input type="submit" class="btn btn-primary" value="완료" /> 
+							<a href="#" class="btn btn-primary" data-dismiss="modal">취소</a>
+
 							</form>							
 						</div>
 					</div>
@@ -220,24 +277,21 @@
 	</div>
 			
 
-		<script language="JavaScript">
-		function ClipBoardClear()
-		{
-		 if(window.clipboardData)
-		 {
-		 clipboardData.clearData();
-		 }
-		}
-		setInterval("ClipBoardClear();", 100);
-
-			var id;
+		<script>
 			var myApp = angular.module('myApp', []);
 			myApp.controller('UserCtrl', [ '$scope', '$http',
 					function($scope, $http) {
 
 						//
-						$scope.management = '';
+						$scope.ipinfo = '';
 						$scope.x = '';
+						
+						$scope.do_some_action3 = function() {
+							
+							$("#addWidgetModal3").modal('show', function() {
+
+							});
+						}
 
 						$scope.do_some_action = function(x) {
 							$scope.x = x;

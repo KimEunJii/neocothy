@@ -28,9 +28,8 @@
 		
 	</resultMap>
 	
-	<resultMap type="IpinfoVo" id="ipinfoMap">
-	
-			<result property="id" column="id" jdbcType="NUMERIC"/>
+	<resultMap id="ipinfoMap" type="IpinfoVo">	
+		<result property="id" column="id" jdbcType="NUMERIC"/>
 		<result property="category" column="category" jdbcType="VARCHAR"/>
 		<result property="network" column="network" jdbcType="VARCHAR"/>
 		<result property="ip" column="ip" jdbcType="VARCHAR"/>
@@ -46,8 +45,7 @@
 		<result property="per_date" column="per_date" jdbcType="VARCHAR" />
 		<result property="mody_date" column="mody_date" jdbcType="VARCHAR" />
 		<result property="note" column="note" jdbcType="VARCHAR"/>
-		<result property="user_id" column="user_id" jdbcType="VARCHAR"/>
-		
+		<result property="user_id" column="user_id" jdbcType="VARCHAR"/>	
 	</resultMap>
 	
 	
@@ -62,23 +60,22 @@
 		]]>  
 	</insert>
 	
-	<select 	id="list"	resultMap="ipinfoSelectMap" parameterType="IpinfoVo">
+	<select 	id="list"	parameterType="ipinfoVo" resultMap="ipinfoSelectMap" >
 		<![CDATA[
 		select id,category,network,ip,mask,usages,equipment,model,used,os,use_dept,user,use_term,per_date,mody_date,note,user_id from ip_info
 		
 		]]> 
 	 </select>
 	 
-	 	 <select 	id="get"	parameterType="int"	resultMap="ipinfoMap">
+	 	 <select 	id="getOne"	parameterType="String"	resultMap="ipinfoSelectMap">
 		<![CDATA[
 		select *
-		  from ip_info 
-		  where id=#{id}
+		  from ip_info where id=#{id}
 		]]> 
 	 </select>
 
 
-	 <delete id="delete" parameterType="Int">
+ <delete id="delete" parameterType="Int">
 	 	<![CDATA[
 			 delete 
 			 from ip_info
@@ -88,11 +85,11 @@
 	 
 	 <update id="update" parameterType="IpinfoVo">
 	 	<![CDATA[
-	 		update ip_info
-	 		set category = #{category}, network=#{network}, ip=#{ip}, mask=#{mask}, usages=#{usages}, equipment=#{equipment},
-	 			model= #{model}, used= #{used}, os=#{os}, use_dept=#{use_dept}, user=#{user},
-	 			use_term=#{use_term}, per_date= #{per_date}, mody_date= #{mody_date}, note= #{note}, user_id=#{user_id}
-	 		where id = #{id}   
-		]]>	 
+	 		UPDATE ip_info
+	 		SET id=#{id}, category=#{category}, network=#{network}, ip=#{ip}, mask=#{mask}, usages=#{usages}, equipment=#{equipment},
+	 		model=#{model}, used=#{used}, os=#{os}, use_dept=#{use_dept}, user=#{user},
+	 		use_term=#{use_term}, per_date=#{per_date}, mody_date=#{mody_date}, note= #{note}, user_id=#{user_id}
+	 		WHERE id=#{id}   
+	]]>	 
 	 </update>
 </mapper>

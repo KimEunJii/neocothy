@@ -17,19 +17,19 @@ public class IpinfoDao {
 	
 	
 	public void insert(IpinfoVo vo){
-		System.out.println("ipinfodao");
+	
 		sqlSession.insert("IpinfoMapper.insert", vo);
 	}
 	
 	public List<IpinfoVo> getList(){
-		System.out.println("IpinfoDao.getList");
+		
 
 		return sqlSession.selectList("IpinfoMapper.list");
 	}
 	
 	
 	public IpinfoVo getSelect(int id){
-		System.out.println("getselect");
+		
 		return sqlSession.selectOne("IpinfoMapper.get", id);
 	}
 	
@@ -38,7 +38,7 @@ public class IpinfoDao {
 	}
 	
 	public IpinfoVo update(IpinfoVo vo){
-		System.out.println("update infoDao");
+		
 		return sqlSession.selectOne("IpinfoMapper.update", vo);
 	}
 

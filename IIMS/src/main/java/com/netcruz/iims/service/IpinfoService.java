@@ -16,8 +16,7 @@ public class IpinfoService {
 	IpinfoDao ipinfoDao;
 	
 	public IpinfoVo registerIpinfo(IpinfoVo vo){
-		System.out.println("IpinfoService.registerIpinfo");
-		
+	
 		ipinfoDao.insert(vo);
 		return vo;
 	}
@@ -42,7 +41,6 @@ public class IpinfoService {
 	
 	public void update(IpinfoVo vo){
 		
-		System.out.println("upadate ipinfoService");
 		
 		ipinfoDao.update(vo);
 	}

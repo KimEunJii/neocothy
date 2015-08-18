@@ -2,7 +2,10 @@ package com.netcruz.iims.controller;
 
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.netcruz.iims.service.IpinfoService;
 import com.netcruz.iims.vo.IpinfoVo;
+import com.netcruz.iims.vo.UserVo;
 
 
 @Controller("ipinfoController")
@@ -27,10 +31,16 @@ public class IpinfoController {
 	
 	
 	@RequestMapping("/insert.do")
-	public String insert(IpinfoVo vo){
+	public String insert(IpinfoVo vo,HttpSession session){
+		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy.MM.dd HH:mm:ss", Locale.KOREA );
+		Date today = new Date(); 
+		String dTime = formatter.format ( today );
+		vo.setMody_date(dTime);
+		
+		UserVo userFlag = (UserVo)session.getAttribute("userFlag");
+		vo.setUser_id(userFlag.getId());
 		ipinfoService.registerIpinfo(vo);		
 		
-		System.out.println("insert controller");		
 		return "redirect:/ipinfo/list.do";
 	}	
 	
@@ -54,7 +64,7 @@ public class IpinfoController {
 	}
 	
 	@RequestMapping("/update.do")
-	public String updateIpinfo(IpinfoVo vo){
+	public String updateIpinfo(IpinfoVo vo,HttpSession session){
 		try {
 			vo.setCategory(new String(vo.getCategory().getBytes("ISO-8859-1"), "euc-kr"));
 		} catch (UnsupportedEncodingException e) {
@@ -62,6 +72,8 @@ public class IpinfoController {
 			e.printStackTrace();
 		}
 		
+		UserVo userFlag = (UserVo)session.getAttribute("userFlag");
+		vo.setNote("수정자: "+userFlag.getName());
 		ipinfoService.update(vo);
 
 		return "redirect:/ipinfo/list.do";
