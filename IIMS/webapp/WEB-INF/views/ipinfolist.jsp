@@ -33,62 +33,63 @@
 
 <body>
 	
-	<div class="panel">  
-		<div class="input-group" ng-app="myApp" ng-controller="UserCtrl">
+	<div class="panel container">  
+		<div class="input-group" id = "table1" ng-app="myApp" ng-controller="UserCtrl">
 		<center>
 			<h1>IP 정보관리</h1>
 		</center>
-		 <div>
-		 <input type="text" class="form-control"/>
-         <button class="btn btn-default" ng-click="addNewItem(actionText)">검색 </button>
-         </div>
-			<table class="table table-striped">
-				<tr>
-				
-				<th>분류</th>
-				<th>망 구분</th>
-				<th>IP</th>
-				<th>Mask</th>
-				<th>용도(부서)</th>
-				<th>장비명(사용자)</th>
-				<th>모델명</th>
-				<th>사용여부</th>
-				<th>OS</th>
-				<th>사용부서</th>
-				<th>사용자</th>
-				<th>사용기간</th>
-				<th>승인일자</th>
-				<th>수정일자</th>
-				<th>비고</th>
-				<th>작성자</th>
-			</tr>
+			<div>
+				<input type="text" class="form-control" />
+				<button class="btn btn-default" ng-click="addNewItem(actionText)">검색
+				</button>
 
-				<tr ng-repeat="x in ipinfo" data-toggle="modal"
-					ng-click="do_some_action(x)" id="ipinfotable">
-					
-				
-				<td>{{x.category}}</td>
-				<td>{{x.network}}</td>
-				<td>{{x.ip}}</td>
-				<td>{{x.mask}}</td>
-				<td>{{x.usages}}</td>
-				<td>{{x.equipment}}</td>
-				<td>{{x.model}}</td>
-				<td>{{x.used}}</td>
-				<td>{{x.os}}</td>
-				<td>{{x.use_dept}}</td>
-				<td>{{x.user}}</td>
-				<td>{{x.use_term}}</td>
-				<td>{{x.per_date}}</td>
-				<td>{{x.mody_date}}</td>
-				<td>{{x.note}}</td>
-				<td>{{x.user_id}}</td>
-			</tr>		
-		</table>
+				<table class="table table-striped">
+					<tr>
+
+						<th>분류</th>
+						<th>망 구분</th>
+						<th>IP</th>
+						<th>Mask</th>
+						<th>용도(부서)</th>
+						<th>장비명(사용자)</th>
+						<th>모델명</th>
+						<th>사용여부</th>
+						<th>OS</th>
+						<th>사용부서</th>
+						<th>사용자</th>
+						<th>사용기간</th>
+						<th>승인일자</th>
+						<th>수정일자</th>
+						<th>비고</th>
+						<th>작성자</th>
+					</tr>
+
+					<tr ng-repeat="x in ipinfo" data-toggle="modal"
+						ng-click="do_some_action(x)" id="ipinfotable">
 
 
-<div align="right">
-	<%
+						<td>{{x.category}}</td>
+						<td>{{x.network}}</td>
+						<td>{{x.ip}}</td>
+						<td>{{x.mask}}</td>
+						<td>{{x.usages}}</td>
+						<td>{{x.equipment}}</td>
+						<td>{{x.model}}</td>
+						<td>{{x.used}}</td>
+						<td>{{x.os}}</td>
+						<td>{{x.use_dept}}</td>
+						<td>{{x.user}}</td>
+						<td>{{x.use_term}}</td>
+						<td>{{x.per_date}}</td>
+						<td>{{x.mody_date}}</td>
+						<td>{{x.note}}</td>
+						<td>{{x.user_id}}</td>
+					</tr>
+				</table>
+
+
+				<div align="right">
+					<%
 						if ("master".equals(vo.getRole())) {
 					%>
 					<p>
@@ -105,61 +106,51 @@
 					<%
 						}
 					%>
-</div>
-
-<div class="modal" id="addWidgetModal3">
-	<div class="modal-dialog modal-size">
-		<div class="modal-content">
-			<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title">Add Widget</h4>
-					</div>
-		<div class="modal-body">
-		<form action="insert.do" method="post">
-		
-		
-		<label>분류</label>
-		<input type="text" class="form-control" name="category"/><br>
-		<label>망구분</label>
-		<input type="text" class="form-control" name="network"/><br>
-		<label>아이피</label> 
-		<input type="text" class="form-control" name="ip"/><br>
-		<label>mask</label>
-		<input type="text" class="form-control" name="mask"/><br>
-		<label>용도(부서)</label>
-		<input type="text" class="form-control" name="usages"/><br>
-		<label>장비명(사용자)</label>
-		<input type="text" class="form-control" name="equipment" /><br>
-		<label>모델명</label>
-	    <input type="text" class="form-control" name="model" /><br>
-	    <label>사용여부</label>
-	    <input type="text" class="form-control" name="used" /><br>
-	    <label>OS</label>
-		<input type="text" class="form-control" name="os" /><br>
-		<label>사용부서</label>
-		<input type="text" class="form-control" name="use_dept" /><br>
-		<label>사용자</label>
-		<input type="text" class="form-control" name="user" /><br>
-		<label>사용기간</label>
-		<input type="text" class="form-control"  name="use_term" /><br>
-		<label>승인일자</label> 
-		<input type="text" class="form-control" name="per_date" /><br>
-		<label>수정일자</label> 
-		<input type="text" class="form-control" name="mody_date" /><br>
-		<label>비고</label>
-		<input type="text" class="form-control" name="note" /><br>
-		<label>등록자</label>
-		<input type="text" class="form-control" name="user_id"/><br>
-		
-	
-			<a href="#" data-dismiss="modal" class="btn">Close</a>							
-			<input type="submit" class="btn btn-primary" value="등록" />
-		</form>
-		
+				</div>
 			</div>
-		</div>
-	</div>
-</div>
+			<div class="modal" id="addWidgetModal3">
+				<div class="modal-dialog modal-size">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+							<h4 class="modal-title">Add Widget</h4>
+						</div>
+						<div class="modal-body">
+							<form action="insert.do" method="post">
+
+
+								<label>분류</label> <input type="text" class="form-control"
+									name="category" /><br> <label>망구분</label> <input
+									type="text" class="form-control" name="network" /><br> <label>아이피</label>
+								<input type="text" class="form-control" name="ip" /><br> <label>mask</label>
+								<input type="text" class="form-control" name="mask" /><br>
+								<label>용도(부서)</label> <input type="text" class="form-control"
+									name="usages" /><br> <label>장비명(사용자)</label> <input
+									type="text" class="form-control" name="equipment" /><br>
+								<label>모델명</label> <input type="text" class="form-control"
+									name="model" /><br> <label>사용여부</label> <input
+									type="text" class="form-control" name="used" /><br> <label>OS</label>
+								<input type="text" class="form-control" name="os" /><br> <label>사용부서</label>
+								<input type="text" class="form-control" name="use_dept" /><br>
+								<label>사용자</label> <input type="text" class="form-control"
+									name="user" /><br> <label>사용기간</label> <input type="text"
+									class="form-control" name="use_term" /><br> <label>승인일자</label>
+								<input type="text" class="form-control" name="per_date" /><br>
+								<label>수정일자</label> <input type="text" class="form-control"
+									name="mody_date" /><br> <label>비고</label> <input
+									type="text" class="form-control" name="note" /><br> <label>등록자</label>
+								<input type="text" class="form-control" name="user_id" /><br>
+
+
+								<a href="#" data-dismiss="modal" class="btn">Close</a> <input
+									type="submit" class="btn btn-primary" value="등록" />
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
 
 
 

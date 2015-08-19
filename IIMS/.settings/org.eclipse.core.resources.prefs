@@ -3,5 +3,6 @@ encoding//src/main/java=UTF-8
 encoding//src/test/java=UTF-8
 encoding//webapp/WEB-INF/views/addresslist.jsp=UTF-8
 encoding//webapp/WEB-INF/views/login.jsp=UTF-8
+encoding//webapp/WEB-INF/views/main.jsp=UTF-8
 encoding//webapp/WEB-INF/views/tem.jsp=UTF-8
 encoding/<project>=UTF-8

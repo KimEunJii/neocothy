@@ -12,6 +12,14 @@
 	UserVo vo = (UserVo) session.getAttribute("userFlag");
 %>
 
+  <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+  <script data-require="angular.js@1.3.0" data-semver="1.3.0" src="https://code.angularjs.org/1.3.0/angular.js"></script>
+  <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+  <script src="/assets/js/dirPagination.js"></script>
+
 <head>
 
 
@@ -33,14 +41,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>작업 이력 관리</title>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<% pageContext.setAttribute("newLineChar", "\n"); %>
-<jsp:scriptlet>
-
-</jsp:scriptlet>
-
-
-
 </head>
 
 <body>
@@ -54,14 +54,6 @@
 				<h1>작업 이력 관리</h1>
 			</center>
 			<div id="table1">
-				<!-- 		 <input type="text" class="form-control" id="table1"/> -->
-
-
-				<!--                 <button class="btn btn-default" ng-click="addNewItem(actionText)"> -->
-				<!--                     	검색 -->
-				<!--                 </button> -->
-
-
 
 				<table class="table table-striped center">
 					<tr>
@@ -109,6 +101,51 @@
 					<br> <br>
 				</div>
 			</div>
+			
+			
+			
+			<!--  -->
+				
+	  <div ng-controller="MyController" class="my-controller">
+        
+
+          <div class="row">
+            <div class="col-xs-4">
+              <h3>Meals Page: {{ currentPage }}</h3>
+            </div>
+            <div class="col-xs-4">
+              <label for="search">Search:</label>
+              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+            <div class="col-xs-4">
+              <label for="search">items per page:</label>
+              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+          </div>
+          <br>
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+              <ul>
+                <li dir-paginate="meal in meals | filter:q | itemsPerPage: pageSize" current-page="currentPage">{{ meal }}</li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div ng-controller="OtherController" class="other-controller">
+          <small>this is in "OtherController"</small>
+          <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/WEB_INF/views/dirPagination.tpl.html"></dir-pagination-controls>
+          </div>
+        </div>
+	
+	
+			
+			
+			
+			<!--  -->
 
 
 			<div class="modal" id="addWidgetModal3">
@@ -217,8 +254,7 @@
 								<label>작업명</label>
 								<input type="text" class="form-control" name="title" value="{{x.title}}"  wrap="hard"/><br> 
 								<label>내용</label>
-								<textarea  rows="8" name="contents" class="form-control" >{{x.contents}}
-</textarea>
+								<textarea  rows="8" name="contents" class="form-control" >{{x.contents}}</textarea>
 								<br> <label>비고</label>
 							
 								<textarea  name="note" class="form-control" >{{x.note}}</textarea>
@@ -236,11 +272,19 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
+
+	
+	
+	
+	
 
 
 	<script>
 		var id;
-		var myApp = angular.module('myApp', []);
+		var myApp = angular.module('myApp',  ['angularUtils.directives.dirPagination']);
 		myApp.controller('UserCtrl', [ '$scope', '$http',
 				function($scope, $http) {
 					//
@@ -248,7 +292,6 @@
 					$scope.x = '';
 					
 					
-					$("#a").val().replace(/\r\n/g,'<br>');
 					$scope.do_some_action3 = function() {
 
 						$("#addWidgetModal3").modal('show', function() {
@@ -283,10 +326,64 @@
 						window.alert(status);
 					});
 					
-			
 					
+					
+					function MyController($scope) {
+
+						  $scope.currentPage = 1;
+						  $scope.pageSize = 10;
+						  $scope.meals = [];
+
+						  var dishes = [
+						    'noodles',
+						    'sausage',
+						    'beans on toast',
+						    'cheeseburger',
+						    'battered mars bar',
+						    'crisp butty',
+						    'yorkshire pudding',
+						    'wiener schnitzel',
+						    'sauerkraut mit ei',
+						    'salad',
+						    'onion soup',
+						    'bak choi',
+						    'avacado maki'
+						  ];
+						  var sides = [
+						    'with chips',
+						    'a la king',
+						    'drizzled with cheese sauce',
+						    'with a side salad',
+						    'on toast',
+						    'with ketchup',
+						    'on a bed of cabbage',
+						    'wrapped in streaky bacon',
+						    'on a stick with cheese',
+						    'in pitta bread'
+						  ];
+						  for (var i = 1; i <= 100; i++) {
+						    var dish = dishes[Math.floor(Math.random() * dishes.length)];
+						    var side = sides[Math.floor(Math.random() * sides.length)];
+						    $scope.meals.push('meal ' + i + ': ' + dish + ' ' + side);
+						  }
+						  
+						  $scope.pageChangeHandler = function(num) {
+						      console.log('meals page changed to ' + num);
+						  };
+						}
+
+						function OtherController($scope) {
+						  $scope.pageChangeHandler = function(num) {
+						    console.log('going to page ' + num);
+						  };
+						}	
 									
 		} ]);
+		
+		
+
+		myApp.controller('MyController', MyController);
+		myApp.controller('OtherController', OtherController);
 		
 
 		

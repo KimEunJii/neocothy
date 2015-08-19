@@ -43,7 +43,7 @@ public class UserController {
 	    		UserVo user = userService.getOne(user_id);
 	    		
 	    		session.setAttribute("userFlag", user);
-	    		return "redirect:/ipinfo/list.do";
+	    		return "tem.jsp?nextPage=main";
 	    	}
 	    	else	    	
 	    		return "AlertPage";  		    		
