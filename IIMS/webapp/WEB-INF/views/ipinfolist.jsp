@@ -7,6 +7,7 @@
 	
 <%@page import="com.netcruz.iims.vo.UserVo"%>
 <%@page import="com.netcruz.iims.vo.ManagementVo"%>
+
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -128,7 +129,7 @@ margin: 19px 28px;
 				<td>{{x.use_term}}</td>
 				<td>{{x.per_date}}</td>
 				<td>{{x.mody_date}}</td>
-				<td>{{x.note}}</td>
+				<td><pre>{{x.note}}</pre></td>
 				<td>{{x.user_id}}</td>
 			</tr>		
 			
@@ -200,9 +201,7 @@ margin: 19px 28px;
 		<label>수정일자</label> 
 		<input type="text" class="form-control" name="mody_date" /><br>
 		비고
-		<text
-		 name="note"></textarea>
-		
+	   <textarea name="note" class="form-control" rows="8"></textarea><br>	
 		<label>등록자</label>
 		<input type="text" class="form-control" name="user_id"/><br>
 		
@@ -300,7 +299,8 @@ margin: 19px 28px;
 							<label>수정일자</label>
 							<input type="text" class="form-control" name="mody_date" value="{{x.mody_date}}"/><br>
 							비고
-							<pre><<input type="textarea" name="note" value="{{x.note}}" /></pre>
+							<textarea name="note" class="form-control" rows="8">{{x.note}}</textarea> <br>
+							
 							<label>등록자</label>
 							<input type="text" class="form-control" name="user_id" value="{{x.user_id}}"/><br>																
 						
