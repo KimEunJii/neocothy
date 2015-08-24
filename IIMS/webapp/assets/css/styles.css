@@ -95,3 +95,25 @@ Pseudo ::after element
 .third-controller small {
   color: #9c9;
 }
+
+  paginationclass{
+    
+margin: 19px 28px;    
+}
+.paginationclass span{
+    margin-left:15px;
+    display:inline-block;
+}
+.pagination-controle li{
+    display: inline-block;
+}
+.pagination-controle button{
+    font-size: 12px;
+    margin-top: -26px;
+    cursor:pointer;
+    
+}
+.pagination{
+    margin:50px 12px !important;
+    
+}

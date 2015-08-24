@@ -1,6 +1,11 @@
 package com.netcruz.iims.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.netcruz.iims.service.AddressService;
 import com.netcruz.iims.vo.AddressVo;
+import com.netcruz.iims.vo.UserVo;
 
 @Controller("adressController")
 @RequestMapping("/address")
@@ -49,9 +55,8 @@ public class AddressController {
 	}
 	
 	@RequestMapping("/updateWork.do")
-	public String update(AddressVo vo){
+	public String update(AddressVo vo, HttpServletRequest request, HttpSession session){
 		try {
-			String str = new String(vo.getCategory().getBytes("ISO-8859-1"), "euc-kr");
 			vo.setCategory(new String(vo.getCategory().getBytes("ISO-8859-1"), "euc-kr"));
 			vo.setPartner(new String(vo.getPartner().getBytes("ISO-8859-1"), "euc-kr"));
 			vo.setPm(new String(vo.getPm().getBytes("ISO-8859-1"), "euc-kr"));
@@ -70,6 +75,18 @@ public class AddressController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		
+		UserVo userFlag = (UserVo)session.getAttribute("userFlag");
+		
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd/HH:mm:ss");
+		String updateDate = dateFormat.format(calendar.getTime());
+		
+		String note = vo.getNote();
+		String[] result = note.split("수정자");
+		String str1 = result[0] + "\n" + "수정자: " + userFlag.getName() + "\n" + "수정 일자: " + updateDate; 
+		
+		vo.setNote(str1);
 		
 		addressService.update(vo);
 		

@@ -128,11 +128,11 @@ public class ManagementController {
 		String dTime = formatter.format ( today );
 		String str = vo.getNote();
 		
-		String[] result = str.split("\\*");
+		String[] result = str.split("자");
 		String strNote = result[0];
 		//String strEdit = result[1];
 		
-		String str1 = strNote + "*수정자: " + userFlag.getName()+",  수정날짜: "+dTime;
+		String str1 = strNote + "수정자: " + userFlag.getName()+",  수정 일자: "+dTime;
 		
 	
 

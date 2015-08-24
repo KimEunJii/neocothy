@@ -27,7 +27,28 @@
 <title>작업 이력 관리</title>
 
 </head>
-
+ <style>
+  paginationclass{
+    
+margin: 19px 28px;    
+}
+.paginationclass span{
+    margin-left:15px;
+    display:inline-block;
+}
+.pagination-controle li{
+    display: inline-block;
+}
+.pagination-controle button{
+    font-size: 12px;
+    margin-top: -26px;
+    cursor:pointer;
+    
+}
+.pagination{
+    margin:5px 12px !important;
+}
+</style>
 <body>
 	
 	
@@ -52,9 +73,9 @@
 
 					</tr>
 
-					<tr ng-repeat="x in management" data-toggle="modal"
-						ng-click="do_some_action(x)">
-
+					<tr ng-repeat="x in management | pagination: curPage * pageSize | limitTo: pageSize"
+					data-toggle="modal" ng-click="do_some_action(x)" >
+					
 						<td>{{x.date}}</td>
 						<td>{{x.equipment}}</td>
 						<td>{{x.title}}</td>
@@ -63,7 +84,21 @@
 					</tr>
 				</table>
 
-
+				<center>
+				<div class="pagination pagination-centered" ng-show="management.length">
+					<ul class="pagination-controle pagination">
+	 					<li>
+	  						<button type="button" class="btn btn-primary" ng-disabled="curPage == 0" ng-click="curPage=curPage-1"> &lt; PREV</button>
+	 					</li>	 					
+	 					<li>
+	 						<span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+	 					</li>	 					
+	 					<li>
+	 						<button type="button" class="btn btn-primary" ng-disabled="curPage >= management.length/pageSize - 1" ng-click="curPage = curPage+1">NEXT &gt;</button>
+	 					</li>
+					</ul>
+				</div>
+				</center>
 
 				<div align="right">
 					<%
@@ -240,10 +275,25 @@
 							}
 						}).success(function(data, status, headers, config) {
 							$scope.management = data;
+							$scope.curPage = 0;
+							$scope.pageSize = 10;					
+						    $scope.numberOfPages = function() {
+							return Math.ceil($scope.management.length / $scope.pageSize);
+						    };	
 						}).error(function(data, status, headers, config) {
 							window.alert(status);
 						});
 					} ]);
+			
+					angular.module('myApp').filter('pagination', function()
+					{
+						 return function(input, start)
+							 {
+							 	 start = +start;
+							 	 return input.slice(start);
+							 };
+					});
+			
 			
 		</script>
 		

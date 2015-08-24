@@ -12,16 +12,17 @@
 	UserVo vo = (UserVo) session.getAttribute("userFlag");
 %>
 
-  <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-  <script data-require="angular.js@1.3.0" data-semver="1.3.0" src="https://code.angularjs.org/1.3.0/angular.js"></script>
-  <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-  <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js"></script>
-  <script src="/assets/js/dirPagination.js"></script>
 
 <head>
 
+
+<!--   <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" /> -->
+  <script data-require="angular.js@1.3.0" data-semver="1.3.0" src="https://code.angularjs.org/1.3.0/angular.js"></script>
+  <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+<!--   <script src="/assets/js/script.js"></script> -->
+  <script src="/assets/js/dirPagination.js"></script>
 
 <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 <script
@@ -42,14 +43,35 @@
 
 <title>작업 이력 관리</title>
 </head>
-
+  <style>
+  paginationclass{
+    
+margin: 19px 28px;    
+}
+.paginationclass span{
+    margin-left:15px;
+    display:inline-block;
+}
+.pagination-controle li{
+    display: inline-block;
+}
+.pagination-controle button{
+    font-size: 12px;
+    margin-top: -26px;
+    cursor:pointer;
+    
+}
+.pagination{
+    margin:5px 12px !important;
+}
+</style>
 <body>
 
 
 	<div class="panel container">
 
-		<div class="input-group " id="table1" ng-app="myApp"
-			ng-controller="UserCtrl">
+		<div class="input-group " id="table1" ng-app="myApp">
+		<div ng-controller="UserCtrl" >
 			<center>
 				<h1>작업 이력 관리</h1>
 			</center>
@@ -66,8 +88,8 @@
 
 					</tr>
 
-					<tr ng-repeat="x in management" data-toggle="modal"
-						ng-click="do_some_action(x)" id="managementtable">
+					<tr ng-repeat="x in management | pagination: curPage * pageSize | limitTo: pageSize"
+					data-toggle="modal" ng-click="do_some_action(x)" id="managementtable">
 
 						<td>{{x.date}}</td>
 						<td>{{x.equipment}}</td>
@@ -77,6 +99,22 @@
 
 					</tr>
 				</table>
+				
+				<center>
+				<div class="pagination pagination-centered" ng-show="management.length">
+					<ul class="pagination-controle pagination">
+	 					<li>
+	  						<button type="button" class="btn btn-primary" ng-disabled="curPage == 0" ng-click="curPage=curPage-1"> &lt; PREV</button>
+	 					</li>	 					
+	 					<li>
+	 						<span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+	 					</li>	 					
+	 					<li>
+	 						<button type="button" class="btn btn-primary" ng-disabled="curPage >= management.length/pageSize - 1" ng-click="curPage = curPage+1">NEXT &gt;</button>
+	 					</li>
+					</ul>
+				</div>
+				</center>
 
 
 				<div align="right">
@@ -101,51 +139,6 @@
 					<br> <br>
 				</div>
 			</div>
-			
-			
-			
-			<!--  -->
-				
-	  <div ng-controller="MyController" class="my-controller">
-        
-
-          <div class="row">
-            <div class="col-xs-4">
-              <h3>Meals Page: {{ currentPage }}</h3>
-            </div>
-            <div class="col-xs-4">
-              <label for="search">Search:</label>
-              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
-            </div>
-            <div class="col-xs-4">
-              <label for="search">items per page:</label>
-              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
-            </div>
-          </div>
-          <br>
-          <div class="panel panel-default">
-            <div class="panel-body">
-
-              <ul>
-                <li dir-paginate="meal in meals | filter:q | itemsPerPage: pageSize" current-page="currentPage">{{ meal }}</li>
-                
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div ng-controller="OtherController" class="other-controller">
-          <small>this is in "OtherController"</small>
-          <div class="text-center">
-          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/WEB_INF/views/dirPagination.tpl.html"></dir-pagination-controls>
-          </div>
-        </div>
-	
-	
-			
-			
-			
-			<!--  -->
 
 
 			<div class="modal" id="addWidgetModal3">
@@ -254,7 +247,8 @@
 								<label>작업명</label>
 								<input type="text" class="form-control" name="title" value="{{x.title}}"  wrap="hard"/><br> 
 								<label>내용</label>
-								<textarea  rows="8" name="contents" class="form-control" >{{x.contents}}</textarea>
+								<textarea  rows="8" name="contents" class="form-control" >{{x.contents}}
+</textarea>
 								<br> <label>비고</label>
 							
 								<textarea  name="note" class="form-control" >{{x.note}}</textarea>
@@ -270,120 +264,201 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+			</div>
 	
-	
-	
+	<!--  -->
 
-	
-	
-	
+   <div >
+          <h1>Tasty Paginated Menu</h1>
+
+          <small>this is in "MyController"</small>
+
+
+          <div class="row">
+            <div class="col-xs-4">
+              <h3>Meals Page: {{ currentPage }}</h3>
+            </div>
+            <div class="col-xs-4">
+              <label for="search">Search:</label>
+              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+            <div class="col-xs-4">
+              <label for="search">items per page:</label>
+              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+          </div>
+          <br>
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+              <ul>
+                <li dir-paginate="management2 | filter:q | itemsPerPage: pageSize" current-page="currentPage"> meal: {{management2}} </li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+
+<!--         <div ng-controller="OtherController" class="other-controller"> -->
+<!--           <small>this is in "OtherController"</small> -->
+<!--           <div class="text-center"> -->
+<!--           <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"  template-url="dirPagination.tpl.html" > -->
+			
+<%-- 			<ul class="pagination" ng-if="1 < pages.length" > --%>
+<!-- 			    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"> -->
+<!-- 			        <a href="" ng-click="setCurrent(1)">&laquo;</a> -->
+<!-- 			    </li> -->
+<!-- 			    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope"> -->
+<!-- 			        <a href="" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a> -->
+<!-- 			    </li> -->
+<!-- 			    <li ng-repeat="pageNumber in pages track by $index" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }"> -->
+<!-- 			        <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a> -->
+<!-- 			    </li> -->
+			
+<!-- 			    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope"> -->
+<!-- 			        <a href="" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a> -->
+<!-- 			    </li> -->
+<!-- 			    <li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"> -->
+<!-- 			        <a href="" ng-click="setCurrent(pagination.last)">&raquo;</a> -->
+<!-- 			    </li> -->
+<!-- 			</ul> -->
+
+			
+<!--           </dir-pagination-controls> -->
+<!--           </div> -->
+<!--         </div> -->
+
+	</div>
+	</div>
 	
 
 
 	<script>
-		var id;
-		var myApp = angular.module('myApp',  ['angularUtils.directives.dirPagination']);
-		myApp.controller('UserCtrl', [ '$scope', '$http',
-				function($scope, $http) {
-					//
-					$scope.management = '';
-					$scope.x = '';
-					
-					
-					$scope.do_some_action3 = function() {
+	
+	
+	var id;
+	var myApp = angular.module('myApp',['angularUtils.directives.dirPagination']);
+	
+			function UserCtrl($scope, $http) {
+				//
+				$scope.management = '';
+				$scope.x = '';
+				$scope.management2 = [];
+		
+			
 
-						$("#addWidgetModal3").modal('show', function() {
+				$scope.do_some_action3 = function() {
 
-						});
-					}
+					$("#addWidgetModal3").modal('show', function() {
 
-					$scope.do_some_action = function(x) {
-						$scope.x = x;
-						$("#addWidgetModal").modal('show', function() {
-
-						});
-					}
-
-					$scope.do_some_action2 = function(x) {
-						$scope.x = x;
-						$("#addWidgetModal2").modal('show', function() {
-
-						});
-					}
-
-					//서버에 사용자 이름 요청
-					$http({
-						method : 'GET',
-						url : 'getWorkManagement.do',
-						headers : {
-							'Content-type' : 'application/json'
-						}
-					}).success(function(data, status, headers, config) {
-						$scope.management = data;
-					}).error(function(data, status, headers, config) {
-						window.alert(status);
 					});
-					
-					
-					
-					function MyController($scope) {
+				}
 
-						  $scope.currentPage = 1;
-						  $scope.pageSize = 10;
-						  $scope.meals = [];
+				$scope.do_some_action = function(x) {
+					$scope.x = x;
+					$("#addWidgetModal").modal('show', function() {
 
-						  var dishes = [
-						    'noodles',
-						    'sausage',
-						    'beans on toast',
-						    'cheeseburger',
-						    'battered mars bar',
-						    'crisp butty',
-						    'yorkshire pudding',
-						    'wiener schnitzel',
-						    'sauerkraut mit ei',
-						    'salad',
-						    'onion soup',
-						    'bak choi',
-						    'avacado maki'
-						  ];
-						  var sides = [
-						    'with chips',
-						    'a la king',
-						    'drizzled with cheese sauce',
-						    'with a side salad',
-						    'on toast',
-						    'with ketchup',
-						    'on a bed of cabbage',
-						    'wrapped in streaky bacon',
-						    'on a stick with cheese',
-						    'in pitta bread'
-						  ];
-						  for (var i = 1; i <= 100; i++) {
-						    var dish = dishes[Math.floor(Math.random() * dishes.length)];
-						    var side = sides[Math.floor(Math.random() * sides.length)];
-						    $scope.meals.push('meal ' + i + ': ' + dish + ' ' + side);
-						  }
-						  
-						  $scope.pageChangeHandler = function(num) {
-						      console.log('meals page changed to ' + num);
-						  };
-						}
+					});
+				}
 
-						function OtherController($scope) {
-						  $scope.pageChangeHandler = function(num) {
-						    console.log('going to page ' + num);
-						  };
-						}	
-									
-		} ]);
-		
-		
+				$scope.do_some_action2 = function(x) {
+					$scope.x = x;
+					$("#addWidgetModal2").modal('show', function() {
 
-		myApp.controller('MyController', MyController);
-		myApp.controller('OtherController', OtherController);
+					});
+				}
+				
+				
+				for(var i=1; i<=100; i++){
+					$scope.management2.push('meal'+i);	
+				}
+
+				//서버에 사용자 이름 요청
+				$http({
+					method : 'GET',
+					url : 'getWorkManagement.do',
+					headers : {
+						'Content-type' : 'application/json'
+					}
+				}).success(function(data, status, headers, config) {
+					$scope.management = data;
+					$scope.curPage = 0;
+					$scope.pageSize = 10;					
+				    $scope.numberOfPages = function() {
+					return Math.ceil($scope.management.length / $scope.pageSize);
+				    };	
+						
+				}).error(function(data, status, headers, config) {
+					window.alert(status);
+				});
+													
+			}
+			
+			angular.module('myApp').filter('pagination', function()
+					{
+					 return function(input, start)
+					 {
+					  start = +start;
+					  return input.slice(start);
+					 };
+			});
+			
+			function MyController($scope) {
+
+				  $scope.currentPage = 1;
+				  $scope.pageSize = 10;
+				  $scope.meals = [];
+			
+				  var dishes = [
+				    'noodles',
+				    'sausage',
+				    'beans on toast',
+				    'cheeseburger',
+				    'battered mars bar',
+				    'crisp butty',
+				    'yorkshire pudding',
+				    'wiener schnitzel',
+				    'sauerkraut mit ei',
+				    'salad',
+				    'onion soup',
+				    'bak choi',
+				    'avacado maki'
+				  ];
+				  var sides = [
+				    'with chips ddddddddddddd',
+				    'a la king',
+				    'drizzled with cheese sauce',
+				    'with a side salad',
+				    'on toast',
+				    'with ketchup',
+				    'on a bed of cabbage',
+				    'wrapped in streaky bacon',
+				    'on a stick with cheese',
+				    'in pitta bread'
+				  ];
+				  for (var i = 1; i <= 100; i++) {
+				    var dish = dishes[Math.floor(Math.random() * dishes.length)];
+				    var side = sides[Math.floor(Math.random() * sides.length)];
+				    $scope.meals.push('meal ' + i + ': ' + dish + ' ' + side);
+				  }
+				  
+				 
+				  
+				  $scope.pageChangeHandler = function(num) {
+				      console.log('meals page changed to ' + num);
+				  };
+				}
+			
+
+				function OtherController($scope) {
+				  $scope.pageChangeHandler = function(num) {
+				    console.log('going to page ' + num);
+				  };
+				}
+	
+	myApp.controller('UserCtrl', UserCtrl);
+	myApp.controller('MyController', MyController);
+	myApp.controller('OtherController', OtherController);
 		
 
 		
