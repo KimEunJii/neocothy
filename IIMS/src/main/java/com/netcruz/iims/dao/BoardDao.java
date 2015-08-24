@@ -12,16 +12,16 @@ import com.netcruz.iims.vo.BoardVo;
 public class BoardDao {
 	
 	@Autowired
-	SqlSession sqlSessionTemplate;
+	SqlSession sqlSession;
 	
 	//crud
 	public void insert( BoardVo vo ) {
-		sqlSessionTemplate.insert( "BoardMapper.insert", vo );
+		sqlSession.insert( "BoardMapper.insert", vo );
 	}
 	
 	public List<BoardVo> getList() {
 		System.out.println( "BoardDao.getList" );
-		return sqlSessionTemplate.selectList("BoardMapper.list");
+		return sqlSession.selectList("BoardMapper.list");
 
 	}
 }

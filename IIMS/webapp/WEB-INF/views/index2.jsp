@@ -1,58 +1,61 @@
-<%@page import="com.netcruz.iims.vo.BoardVo"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<title>Insert title here</title>
-</head>
+<script src="https://code.angularjs.org/1.2.9/angular.min.js"></script>
+<script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<div class="container" ng-app="app" ng-controller="Controller">
+     <h3>Angular Modal Service</h3>
+ <a class="btn btn-default" href ng-click="show()">Show a Modal</a>
 
-<body>
-<h1>list</h1>
-	${list}
-	<form action="insert.do">
-	no :<input type="text" name="no" /> <br>
-	title :<input type="text" name="title" />
-	<input type="submit">
-	</form>
-	
-	<div ng-app="myApp">
-<div ng-controller="UserCtrl" >
-
-{{board.a}}
-
-
-</div>
+    <p>{{message}}</p>
+    <!-- The actual modal template, just a bit o bootstrap -->
+    <script type="text/ng-template" id="modal.html">
+        < div class = "modal fade" > < div class = "modal-dialog" > < div class = "modal-content" > < div class = "modal-header" > < button type = "button"
+        class = "close"
+        ng - click = "close('Cancel')"
+        data - dismiss = "modal"
+        aria - hidden = "true" > & times; < /button>
+                <h4 class="modal-title">Yes or No?</h4 > < /div>
+              <div class="modal-body">
+                <p>It's your call...</p > < /div>
+              <div class="modal-footer">
+                <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">No</button > < button type = "button"
+        ng - click = "close('Yes')"
+        class = "btn btn-primary"
+        data - dismiss = "modal" > Yes < /button>
+              </div > < /div>
+          </div > < /div>
+    </script>
 </div>
 
 
 <script>
-var myApp = angular.module('myApp', []);
-myApp.controller('UserCtrl', ['$scope', '$http', function ($scope, $http){
+var app = angular.module('app', ['angularModalService']);
 
-//   빈 문자열로 초기화
-  $scope.board = '';
+app.controller('Controller', function($scope, ModalService) {
+    
+    $scope.show = function() {
+        ModalService.showModal({
+            templateUrl: 'modal.html',
+            controller: "ModalController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+    };
+    
+});
 
-  // 서버에 사용자 이름을 요청
-  $http({
-    method: 'GET',
-    url: 'test2.do',
-    headers : {'Content-type' : 'application/json'}
+app.controller('ModalController', function($scope, close) {
+  
+ $scope.close = function(result) {
+ 	close(result, 500); // close, but give 500ms for bootstrap to animate
+ };
 
-  })  
-  .success(function (data, status, headers, config) {
-    // 서버로부터 받아온 사용자 이름을 모델에 할당!
-    $scope.board = data;
-//     window.alert($scope.board.a);
-  })
-  .error(function (data, status, headers, config) {
-    // 이런. 뭔가 잘못되었음! :(
-	  window.alert("fail");
-  });
- }]);
+});
+
   
 
   </script>
