@@ -1,3 +1,4 @@
+
 element.style {
 }
 .text-center {
@@ -22,7 +23,7 @@ user agent stylesheetarticle, aside, footer, header, hgroup, main, nav, section 
 }
 Inherited from 
 body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Hanna",Helvetica,Arial,serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
@@ -116,4 +117,19 @@ margin: 19px 28px;
 .pagination{
     margin:50px 12px !important;
     
+}
+.navbar{
+	height:90px;
+}
+.container-fluid{
+	margin-top: 20px;
+}
+.footer{
+	height:90px;
+}
+.margin-top{
+	margin-top: 20px;
+}
+.margin-top2{
+	margin-top: 40px;
 }

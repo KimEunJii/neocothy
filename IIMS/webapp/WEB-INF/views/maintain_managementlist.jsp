@@ -65,15 +65,15 @@ margin: 19px 28px;
 			<div class="col-ms-3" >              
               Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
             </div>
-				<table class="table table-striped center">
+				<table class="table table-striped">
 					<tr>
 
-						<td>일자</td>
-						<td>회사명</td>
-						<td>점검명</td>
-						<td>점검장비</td>
-						<td>특이사항</td>
-						<td>비고</td>
+						<th>일자</th>
+						<th>회사명</th>
+						<th>점검명</th>
+						<th>점검장비</th>
+						<th>특이사항</th>
+						<th>비고</th>
 
 					</tr>
 
@@ -81,11 +81,11 @@ margin: 19px 28px;
 					data-toggle="modal" ng-click="do_some_action(x)" id="managementtable">
 
 						<td>{{x.date}}</td>
-						<td>{{x.company}}</td>
-						<td>{{x.title}}</td>
-						<td><pre>{{x.equipment}}</pre></td>
-						<td><pre>{{x.contents}}</pre></td>
-						<td><pre>{{x.note}}</pre></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.company}}</nobr></div></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.title}}</nobr></div></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.equipment}}</nobr></div></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.contents}}</nobr></div></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.note}}</nobr></div></td>
 					</tr>
 				</table>
 				
@@ -134,7 +134,7 @@ margin: 19px 28px;
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">추가</h4>
 						</div>
 						<div class="modal-body">
 						<form action="insert.do" method="post">
@@ -148,14 +148,15 @@ margin: 19px 28px;
 							<label>점검명</label>
 							<input type="text" class="form-control" name="title" /><br> 
 							<label>점검장비</label>
-							<input type="text" class="form-control" name="equipment" /><br> 	
+							<textarea class="form-control" name="equipment" ></textarea><br> 	
 							<label>특이사항</label>
-							<input type="text" class="form-control" name="contents" /><br> 						
+							<textarea class="form-control" name="contents" ></textarea><br> 						
 							<label>비고</label> 
 							<textarea name="note" class="form-control" ></textarea>
 							<input type="hidden" name="category" value="maintain"> 						
 							</div>				
 						
+						<br><br><br>
 						<div class="modal-footer">							
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
 							<input type="submit" class="btn btn-primary" value="등록" />
@@ -171,7 +172,7 @@ margin: 19px 28px;
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">Detail</h4>
 						</div>
 						<div class="modal-body">
 							
@@ -183,11 +184,11 @@ margin: 19px 28px;
 									  <label >점검명:</label>
 									 {{x.title}}<br>
 									 <label>점검장비:</label>
-									{{x.equipment}}<br>									
+									<pre>{{x.equipment}}</pre><br>									
 									 <label>특이사항:</label> 
-									 {{x.contents}} <br>
+									 <pre>{{x.contents}}</pre> <br>
 									 <label>비고:</label> 
-									  {{x.note}}
+									  <pre>{{x.note}}</pre>
 									<input type="hidden" name="category" value="maintain">
 								</div>
 							
@@ -216,7 +217,7 @@ margin: 19px 28px;
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">수정</h4>
 						</div>
 						<div class="modal-body margin1">
 						
@@ -226,11 +227,11 @@ margin: 19px 28px;
 							<input type="date"  name="date" ng-model="example.value" class="form-control"  
       						 	placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 							<label>회사명</label> 
-							<input type="text" class="form-control" name="date" value="{{x.company}}" /> <br> 
+							<input type="text" class="form-control" name="company" value="{{x.company}}" /> <br> 
 							<label>점검명</label>
 							<input type="text" class="form-control" name="title" value="{{x.title}}" /><br> 
 							<label>점검장비</label> 
-							<input type="text" class="form-control" name="equipment" value="{{x.equipment}}"  /> <br>							
+							<textarea class="form-control" name="equipment" >{{x.equipment}}</textarea> <br>							
 							<label>특이사항</label> 
 							<textarea name="contents" class="form-control" rows="8">{{x.contents}}</textarea> <br>
 							<label>비고</label> 
@@ -239,7 +240,7 @@ margin: 19px 28px;
 						
 						</div>
 						
-						
+						<br><br><br>
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
 							<input type="submit" class="btn btn-primary"  value="완료"/>
@@ -292,7 +293,7 @@ margin: 19px 28px;
 						}).success(function(data, status, headers, config) {
 							$scope.management = data;
 							$scope.curPage = 0;
-							$scope.pageSize = 2;					
+							$scope.pageSize = 10;					
 						    $scope.numberOfPages = function() {
 							return Math.ceil($scope.management.length / $scope.pageSize);
 						    };	

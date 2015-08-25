@@ -65,14 +65,14 @@ margin: 19px 28px;
 			<div class="col-ms-3" >              
               Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
             </div>
-			<table class="table table-striped center">
+			<table class="table table-striped">
 				<tr>
 
-					<td>일자</td>
-					<td>구분</td>
-					<td>주요업무</td>
-					<td>특이사항</td>
-					<td>비고</td>
+					<th>일자</th>
+					<th>구분</th>
+					<th>주요업무</th>
+					<th>특이사항</th>
+					<th>비고</th>
 
 				</tr>
 
@@ -80,10 +80,10 @@ margin: 19px 28px;
 					data-toggle="modal" ng-click="do_some_action(x)" >
 					
 					<td>{{x.date}}</td>
-					<td>{{x.period_type}}</td>
-					<td>{{x.title}}</td>
-					<td><pre>{{x.contents}}</pre></td>
-					<td><pre>{{x.note}}</pre></td>
+					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.period_type}}</nobr></div></td>
+					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.title}}</nobr></div></td>
+					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.contents}}</nobr></div></td>
+					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.note}}</nobr></div></td>
 				</tr>
 			</table>
 			
@@ -125,7 +125,7 @@ margin: 19px 28px;
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">추가</h4>
 						</div>
 						<div class="modal-body">
 						<form action="insert.do" method="post">
@@ -149,6 +149,7 @@ margin: 19px 28px;
 							<input type="hidden" name="category" value="daily"> 						
 							</div>				
 						
+						<br><br><br>
 						<div class="modal-footer">							
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
 							<input type="submit" class="btn btn-primary" value="등록" />
@@ -163,7 +164,7 @@ margin: 19px 28px;
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">Detail</h4>
 						</div>
 						<div class="modal-body">
 							
@@ -175,9 +176,9 @@ margin: 19px 28px;
 									 <label >주요업무:</label>
 									 {{x.title}}<br>
 									 <label>특이사항:</label> 
-									 {{x.contents}} <br>
+									 <pre> {{x.contents}}</pre> <br>
 									 <label>비고:</label> 
-									  {{x.note}}
+									 <pre> {{x.note}} </pre>
 							
 								</div>
 							
@@ -206,7 +207,7 @@ margin: 19px 28px;
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">수정</h4>
 						</div>
 						<div class="modal-body margin1">
 						
@@ -232,7 +233,7 @@ margin: 19px 28px;
 						
 						</div>
 						
-						
+						<br><br><br>
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
 							<input type="submit" class="btn btn-primary"  value="완료"/>

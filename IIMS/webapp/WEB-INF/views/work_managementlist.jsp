@@ -14,32 +14,20 @@
 
 
 <head>
-
-
-<!--   <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" /> -->
   <script data-require="angular.js@1.3.0" data-semver="1.3.0" src="https://code.angularjs.org/1.3.0/angular.js"></script>
   <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
   <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="/assets/css/style.css" />
-<!--   <script src="/assets/js/script.js"></script> -->
-  <script src="/assets/js/dirPagination.js"></script>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.angularjs.org/1.3.1/angular.min.js"></script>
+  <script src="//code.angularjs.org/1.3.1/angular-route.min.js"></script>
+  <script src="//code.angularjs.org/1.3.1/angular-resource.min.js"></script>
+  <script src="//code.angularjs.org/1.3.1/angular-cookies.min.js"></script>
 
-<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.angularjs.org/1.3.1/angular.min.js"></script>
-<script src="//code.angularjs.org/1.3.1/angular-route.min.js"></script>
-<script src="//code.angularjs.org/1.3.1/angular-resource.min.js"></script>
-<script src="//code.angularjs.org/1.3.1/angular-cookies.min.js"></script>
-
-<link href="/assets/css/styles.css" rel="stylesheet">
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="/assets/css/styles.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>작업 이력 관리</title>
 </head>
@@ -84,14 +72,14 @@ margin: 19px 28px;
             </div>
             
             
-				<table class="table table-striped center">
+				<table class="table table-striped">
 					<tr>
 
-						<td>작업일자</td>
-						<td>대상장비</td>
-						<td>작업명</td>
-						<td>주요내용</td>
-						<td>비고</td>
+						<th>작업일자</th>
+						<th>대상장비</th>
+						<th>작업명</th>
+						<th>주요내용</th>
+						<th>비고</th>
 
 					</tr>
 
@@ -99,10 +87,10 @@ margin: 19px 28px;
 					data-toggle="modal" ng-click="do_some_action(x)" id="managementtable" >
 
 						<td>{{x.date}}</td>
-						<td>{{x.equipment}}</td>
-						<td>{{x.title}}</td>
-						<td><pre>{{x.contents}}</pre></td>
-						<td><pre>{{x.note}}</pre></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.equipment}}</nobr></div></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.title}}</nobr></div></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.contents}}</nobr></div></td>
+						<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.note}}</nobr></div></td>
 
 					</tr>
 				</table>
@@ -154,7 +142,7 @@ margin: 19px 28px;
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">Detail</h4>
 						</div>
 						<div class="modal-body">
 						<form action="insert.do" method="post" id="eventForm" name="myForm">
@@ -170,12 +158,11 @@ margin: 19px 28px;
 							<label>비고</label>
 							<textarea name="note" class="form-control" ></textarea>
 							<input type="hidden" name="category" value="work">
-						</div>
+						</div><br><br><br>
 
 						<div class="modal-footer">
-
-							<a href="#" data-dismiss="modal" class="btn">Close</a> <input
-								type="submit" class="btn btn-primary" value="등록" />
+							<a href="#" data-dismiss="modal" class="btn">Close</a>
+							<input	type="submit" class="btn btn-primary" value="등록" />
 							</form>
 						</div>
 					</div>
@@ -192,18 +179,16 @@ margin: 19px 28px;
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">Detail</h4>
 						</div>
 						<div class="modal-body">
-
-							<div class="form-group">
+							
 								<label>작업일자:</label> {{x.date}}<br> 
 								<label>대상장비:</label>{{x.equipment}}<br> 
 								<label>작업명:</label> {{x.title}}<br>
-								<label>내용:</label> {{x.contents}} <br> 
-								<label>비고:</label>{{x.note}} 
-								<input type="hidden" name="category" value="work">
-							</div>
+								<label>내용:</label> <pre>{{x.contents}}</pre> <br> 
+								<label>비고:</label><pre>{{x.note}}</pre> 
+								<input type="hidden" name="category" value="work">						
 
 						</div>
 
@@ -240,7 +225,7 @@ margin: 19px 28px;
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">수정</h4>
 						</div>
 						<div class="modal-body margin1">
 
@@ -253,14 +238,15 @@ margin: 19px 28px;
 								<input type="text" class="form-control"	name="equipment" value="{{x.equipment}}" /> <br> 
 								<label>작업명</label>
 								<input type="text" class="form-control" name="title" value="{{x.title}}"  wrap="hard"/><br> 
-								<label>내용</label>
+								<label>주요내용</label>
 								<textarea  rows="8" name="contents" class="form-control" >{{x.contents}}</textarea>	<br>
-								<label>비고</label>							
+						    	 <label>비고</label>
+							
 								<textarea  name="note" class="form-control" >{{x.note}}</textarea>
 								<input type="hidden" name="category" value="work">
 						</div>
 
-
+						<br><br><br>
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn">Close</a> 
 							<input type="submit" class="btn btn-primary" value="완료" />
@@ -286,7 +272,7 @@ margin: 19px 28px;
 	
 	
 	var id;
-	var myApp = angular.module('myApp',['angularUtils.directives.dirPagination']);
+	var myApp = angular.module('myApp',[]);
 	
 			function UserCtrl($scope, $http) {
 				//
@@ -325,7 +311,7 @@ margin: 19px 28px;
 				}).success(function(data, status, headers, config) {
 					$scope.management = data;
 					$scope.curPage = 0;
-					$scope.pageSize = 15;					
+					$scope.pageSize = 10;					
 				    $scope.numberOfPages = function() {
 					return Math.ceil($scope.management.length / $scope.pageSize);
 				    };	

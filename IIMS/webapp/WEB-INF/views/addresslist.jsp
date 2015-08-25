@@ -21,7 +21,14 @@
 <script src="//code.angularjs.org/1.3.1/angular-route.min.js"></script>
 <script src="//code.angularjs.org/1.3.1/angular-resource.min.js"></script>
 <script src="//code.angularjs.org/1.3.1/angular-cookies.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/hanna.css">
+    <style>
+      body {
+      
+        font-family: 'Hanna', serif;
+        font-size: 48px;
+      }
+    </style>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -62,19 +69,18 @@ margin: 19px 28px;
 
 
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-	<center>
-		<h1>긴급 연락처</h1>
-	</center>
 
 	<div class="panel container">
 		<div class="input-group" id="table1" ng-app="myApp" ng-controller="UserCtrl">
-	
+			<center>
+				<h1>긴급 연락처</h1>
+			</center>
 			<div class="col-ms-3" >              
               Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
             </div>
 		
 			<table class="table table-striped" >
-				<tr>
+				<tr class="">
 				
 					<th>구분</th>
 					<th>업체명</th>
@@ -85,7 +91,7 @@ margin: 19px 28px;
 					<th>담당장비</th>
 					<th>담당엔지니어</th>
 					<th>연락처</th>
-					<th>엔지니어 e-mail</th>
+					<th>엔지니어mail</th>
 					<th>정기점검</th>
 					<th>점검방식</th>
 					<th>담당자</th>
@@ -93,26 +99,27 @@ margin: 19px 28px;
 					<th>작성자</th>
 				</tr>
 				
-				<tbody>
-				<tr ng-repeat="x in address  | pagination: curPage * pageSize | limitTo: pageSize | filter:test" st-table="address" data-toggle="modal" ng-dblclick="detailpopup(x)">
+			
+				<tr ng-repeat="x in address  | pagination: curPage * pageSize | limitTo: pageSize | filter:test"
+				 st-table="address" data-toggle="modal" ng-dblclick="detailpopup(x)" >
 					
-					<td>{{x.category}}</td>
-					<td>{{x.partner}}</td>
-					<td>{{x.pm}}</td>
-					<td>{{x.pm_phone}}</td>
-					<td>{{x.pm_email}}</td>
-					<td>{{x.task}}</td>
-					<td>{{x.equipment}}</td>
-					<td>{{x.engineer}}</td>
-					<td>{{x.engineer_phone}}</td>
-					<td>{{x.engineer_email}}</td>
-					<td>{{x.test_date}}</td>
-					<td>{{x.test_type}}</td>
-					<td>{{x.manager}}</td>
-					<td><pre>{{x.note}}</pre></td>
-					<td>{{x.user_id}}</td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.category}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.partner}}</nobr></div></td>
+					<td><div style="position:relative; width:70px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.pm}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.pm_phone}}</nobr></div></td>
+					<td><div style="position:relative; width:80px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.pm_email}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.task}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.equipment}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.engineer}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.engineer_phone}}</nobr></div></td>
+					<td><div style="position:relative; width:80px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.engineer_email}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.test_date}}</nobr></div></td>
+					<td><div style="position:relative; width:60px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.test_type}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.manager}}</nobr></div></td>
+					<td><div style="position:relative; width:50px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.note}}</nobr></div></td>
+					<td><div style="position:relative; width:50px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.user_id}}</nobr></div></td>
 				</tr>
-				</tbody>
+				
 				<tfoot>
 					<tr>
 						<td colspan="5" class="text-center">
@@ -162,7 +169,7 @@ margin: 19px 28px;
 					<br> <br>
 				</div>
 
-			<br> <br>
+		
 
 			<!-- detail Modal -->
 			<div class="modal detailModal">
@@ -244,7 +251,7 @@ margin: 19px 28px;
 								점검방식 : <input type="text" name="test_type"
 									value="{{edit.test_type}}" /> <br> 담당자 : <input
 									type="text" name="manager" value="{{edit.maanger}}" /> <br>
-								비고 : <textarea name="note" class="form-control" rows="8" value="{{edit.note}}"></textarea> <br>
+								비고 : <textarea name="note" class="form-control" rows="8" >{{edit.note}}</textarea> <br>
 								작성자 : <input type="text" name="user_id" value="{{edit.user_id}}" />
 								<br>
 						</div>
@@ -341,7 +348,7 @@ margin: 19px 28px;
 					$scope.address = '';
 					$scope.selected = '';
 					$scope.edit = '';
-					$scope.testbr="abcd\nefg";
+		
 					
 					$scope.detailpopup = function(x) {
 

@@ -121,19 +121,18 @@ public class ManagementController {
 	}
 	
 	@RequestMapping("/update.do")
-	public String updateManagement(ManagementVo vo,HttpSession session, HttpServletRequest request){
+	public String updateManagement(ManagementVo vo,HttpSession session){
 		UserVo userFlag = (UserVo)session.getAttribute("userFlag");
 		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy.MM.dd HH:mm:ss", Locale.KOREA );
 		Date today = new Date(); 
 		String updateDate = formatter.format ( today );
 		String note = vo.getNote();
 
-		//String strEdit = result[1];
 		String[] result = note.split("수정자");
 		String str1 = result[0] + "\n" + "수정자: " + userFlag.getName() + "\n" + "수정 일자: " + updateDate; 
 
 		vo.setNote(str1);
-//		vo.setContents(contents);
+
 		managementService.update(vo);
 	
 		
