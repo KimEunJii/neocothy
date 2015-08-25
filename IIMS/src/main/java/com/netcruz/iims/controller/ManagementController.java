@@ -125,19 +125,13 @@ public class ManagementController {
 		UserVo userFlag = (UserVo)session.getAttribute("userFlag");
 		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy.MM.dd HH:mm:ss", Locale.KOREA );
 		Date today = new Date(); 
-		String dTime = formatter.format ( today );
-		String str = vo.getNote();
-		
-		String[] result = str.split("자");
-		String strNote = result[0];
-		//String strEdit = result[1];
-		
-		String str1 = strNote + "수정자: " + userFlag.getName()+",  수정 일자: "+dTime;
-		
-	
+		String updateDate = formatter.format ( today );
+		String note = vo.getNote();
 
-//		
-//		String contents = request.getParameter("contents").replaceAll("\r\n", "<br>");
+		//String strEdit = result[1];
+		String[] result = note.split("수정자");
+		String str1 = result[0] + "\n" + "수정자: " + userFlag.getName() + "\n" + "수정 일자: " + updateDate; 
+
 		vo.setNote(str1);
 //		vo.setContents(contents);
 		managementService.update(vo);

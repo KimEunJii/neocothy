@@ -72,11 +72,18 @@ margin: 19px 28px;
 
 		<div class="input-group " id="table1" ng-app="myApp">
 		<div ng-controller="UserCtrl" >
+		
 			<center>
-				<h1>작업 이력 관리</h1>
-			</center>
+				<h1>작업 이력 관리</h1>		
+			</center>		
+		
 			<div id="table1">
-
+		
+			<div class="col-ms-3" >              
+              Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
+            </div>
+            
+            
 				<table class="table table-striped center">
 					<tr>
 
@@ -88,14 +95,14 @@ margin: 19px 28px;
 
 					</tr>
 
-					<tr ng-repeat="x in management | pagination: curPage * pageSize | limitTo: pageSize"
-					data-toggle="modal" ng-click="do_some_action(x)" id="managementtable">
+					<tr ng-repeat="x in management | pagination: curPage * pageSize | limitTo: pageSize | filter:test "
+					data-toggle="modal" ng-click="do_some_action(x)" id="managementtable" >
 
 						<td>{{x.date}}</td>
 						<td>{{x.equipment}}</td>
 						<td>{{x.title}}</td>
-						<td>{{x.contents}}</td>
-						<td>{{x.note}}</td>
+						<td><pre>{{x.contents}}</pre></td>
+						<td><pre>{{x.note}}</pre></td>
 
 					</tr>
 				</table>
@@ -247,10 +254,8 @@ margin: 19px 28px;
 								<label>작업명</label>
 								<input type="text" class="form-control" name="title" value="{{x.title}}"  wrap="hard"/><br> 
 								<label>내용</label>
-								<textarea  rows="8" name="contents" class="form-control" >{{x.contents}}
-</textarea>
-								<br> <label>비고</label>
-							
+								<textarea  rows="8" name="contents" class="form-control" >{{x.contents}}</textarea>	<br>
+								<label>비고</label>							
 								<textarea  name="note" class="form-control" >{{x.note}}</textarea>
 								<input type="hidden" name="category" value="work">
 						</div>
@@ -264,69 +269,13 @@ margin: 19px 28px;
 					</div>
 				</div>
 			</div>
-			</div>
+		
 	
 	<!--  -->
 
-   <div >
-          <h1>Tasty Paginated Menu</h1>
+ 	
 
-          <small>this is in "MyController"</small>
-
-
-          <div class="row">
-            <div class="col-xs-4">
-              <h3>Meals Page: {{ currentPage }}</h3>
-            </div>
-            <div class="col-xs-4">
-              <label for="search">Search:</label>
-              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
-            </div>
-            <div class="col-xs-4">
-              <label for="search">items per page:</label>
-              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
-            </div>
-          </div>
-          <br>
-          <div class="panel panel-default">
-            <div class="panel-body">
-
-              <ul>
-                <li dir-paginate="management2 | filter:q | itemsPerPage: pageSize" current-page="currentPage"> meal: {{management2}} </li>
-                
-              </ul>
-            </div>
-          </div>
-        </div>
-
-<!--         <div ng-controller="OtherController" class="other-controller"> -->
-<!--           <small>this is in "OtherController"</small> -->
-<!--           <div class="text-center"> -->
-<!--           <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"  template-url="dirPagination.tpl.html" > -->
-			
-<%-- 			<ul class="pagination" ng-if="1 < pages.length" > --%>
-<!-- 			    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"> -->
-<!-- 			        <a href="" ng-click="setCurrent(1)">&laquo;</a> -->
-<!-- 			    </li> -->
-<!-- 			    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope"> -->
-<!-- 			        <a href="" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a> -->
-<!-- 			    </li> -->
-<!-- 			    <li ng-repeat="pageNumber in pages track by $index" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }"> -->
-<!-- 			        <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a> -->
-<!-- 			    </li> -->
-			
-<!-- 			    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope"> -->
-<!-- 			        <a href="" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a> -->
-<!-- 			    </li> -->
-<!-- 			    <li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"> -->
-<!-- 			        <a href="" ng-click="setCurrent(pagination.last)">&raquo;</a> -->
-<!-- 			    </li> -->
-<!-- 			</ul> -->
-
-			
-<!--           </dir-pagination-controls> -->
-<!--           </div> -->
-<!--         </div> -->
+	</div>
 
 	</div>
 	</div>
@@ -342,10 +291,7 @@ margin: 19px 28px;
 			function UserCtrl($scope, $http) {
 				//
 				$scope.management = '';
-				$scope.x = '';
-				$scope.management2 = [];
-		
-			
+				$scope.x = '';			
 
 				$scope.do_some_action3 = function() {
 
@@ -368,11 +314,7 @@ margin: 19px 28px;
 					});
 				}
 				
-				
-				for(var i=1; i<=100; i++){
-					$scope.management2.push('meal'+i);	
-				}
-
+		
 				//서버에 사용자 이름 요청
 				$http({
 					method : 'GET',
@@ -383,7 +325,7 @@ margin: 19px 28px;
 				}).success(function(data, status, headers, config) {
 					$scope.management = data;
 					$scope.curPage = 0;
-					$scope.pageSize = 10;					
+					$scope.pageSize = 15;					
 				    $scope.numberOfPages = function() {
 					return Math.ceil($scope.management.length / $scope.pageSize);
 				    };	
@@ -403,62 +345,11 @@ margin: 19px 28px;
 					 };
 			});
 			
-			function MyController($scope) {
-
-				  $scope.currentPage = 1;
-				  $scope.pageSize = 10;
-				  $scope.meals = [];
-			
-				  var dishes = [
-				    'noodles',
-				    'sausage',
-				    'beans on toast',
-				    'cheeseburger',
-				    'battered mars bar',
-				    'crisp butty',
-				    'yorkshire pudding',
-				    'wiener schnitzel',
-				    'sauerkraut mit ei',
-				    'salad',
-				    'onion soup',
-				    'bak choi',
-				    'avacado maki'
-				  ];
-				  var sides = [
-				    'with chips ddddddddddddd',
-				    'a la king',
-				    'drizzled with cheese sauce',
-				    'with a side salad',
-				    'on toast',
-				    'with ketchup',
-				    'on a bed of cabbage',
-				    'wrapped in streaky bacon',
-				    'on a stick with cheese',
-				    'in pitta bread'
-				  ];
-				  for (var i = 1; i <= 100; i++) {
-				    var dish = dishes[Math.floor(Math.random() * dishes.length)];
-				    var side = sides[Math.floor(Math.random() * sides.length)];
-				    $scope.meals.push('meal ' + i + ': ' + dish + ' ' + side);
-				  }
-				  
-				 
-				  
-				  $scope.pageChangeHandler = function(num) {
-				      console.log('meals page changed to ' + num);
-				  };
-				}
-			
-
-				function OtherController($scope) {
-				  $scope.pageChangeHandler = function(num) {
-				    console.log('going to page ' + num);
-				  };
-				}
+		
 	
 	myApp.controller('UserCtrl', UserCtrl);
-	myApp.controller('MyController', MyController);
-	myApp.controller('OtherController', OtherController);
+
+
 		
 
 		

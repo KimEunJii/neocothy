@@ -36,7 +36,7 @@
 </head>
 
 <!-- Style -->
-  <style>
+<style>
   paginationclass{
     
 margin: 19px 28px;    
@@ -68,16 +68,12 @@ margin: 19px 28px;
 
 	<div class="panel container">
 		<div class="input-group" id="table1" ng-app="myApp" ng-controller="UserCtrl">
-		<div class="input-group">
-			<input class="form-control" ng-model="actionText" /> <span
-				class="input-group-btn">
-				<button class="btn btn-default" ng-click="addNewItem(actionText)">
-					검색</button>
-			</span>
-		</div>
-
+	
+			<div class="col-ms-3" >              
+              Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
+            </div>
 		
-			<table class="table table-striped">
+			<table class="table table-striped" >
 				<tr>
 				
 					<th>구분</th>
@@ -98,7 +94,7 @@ margin: 19px 28px;
 				</tr>
 				
 				<tbody>
-				<tr ng-repeat="x in address  | pagination: curPage * pageSize | limitTo: pageSize" st-table="address" data-toggle="modal" ng-dblclick="detailpopup(x)">
+				<tr ng-repeat="x in address  | pagination: curPage * pageSize | limitTo: pageSize | filter:test" st-table="address" data-toggle="modal" ng-dblclick="detailpopup(x)">
 					
 					<td>{{x.category}}</td>
 					<td>{{x.partner}}</td>

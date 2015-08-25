@@ -62,6 +62,9 @@ margin: 19px 28px;
 <!--          <button class="btn btn-default" ng-click="addNewItem(actionText)">검색 </button> -->
 <!--          </div> -->
 			<div id="table1">
+			<div class="col-ms-3" >              
+              Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
+            </div>
 				<table class="table table-striped center">
 					<tr>
 
@@ -74,15 +77,15 @@ margin: 19px 28px;
 
 					</tr>
 
-					<tr ng-repeat="x in management | pagination: curPage * pageSize | limitTo: pageSize"
+					<tr ng-repeat="x in management | pagination: curPage * pageSize | limitTo: pageSize | filter:test"
 					data-toggle="modal" ng-click="do_some_action(x)" id="managementtable">
 
 						<td>{{x.date}}</td>
 						<td>{{x.company}}</td>
 						<td>{{x.title}}</td>
-						<td>{{x.equipment}}</td>
-						<td>{{x.contents}}</td>
-						<td>{{x.note}}</td>
+						<td><pre>{{x.equipment}}</pre></td>
+						<td><pre>{{x.contents}}</pre></td>
+						<td><pre>{{x.note}}</pre></td>
 					</tr>
 				</table>
 				

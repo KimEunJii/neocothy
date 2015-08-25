@@ -57,7 +57,7 @@
                     <ul class="nav nav-stacked collapse in" id="userMenu">
                     	 <li class="active"> <a href="/user/main.do"><i class="glyphicon glyphicon-home"></i> HOME</a></li>
                         <li class="active"> <a href="/ipinfo/list.do"><i class="glyphicon glyphicon-home"></i> IP 정보관리</a></li>
-                        <li><a href="/address/list.do"><i class="glyphicon glyphicon-envelope"></i> 긴급 연락처<span class="badge badge-info">4</span></a></li>
+                        <li><a href="/address/list.do"><i class="glyphicon glyphicon-envelope"></i> 긴급 연락처</a></li>
                         <li><a href="/management/work_list.do"><i class="glyphicon glyphicon-cog"></i> 작업 이력관리</a></li>
                         <li><a href="/management/error_list.do"><i class="glyphicon glyphicon-comment"></i> 장애 이력관리</a></li>
                         <li><a href="/management/daily_list.do"><i class="glyphicon glyphicon-user"></i> 일지 관리</a></li>
