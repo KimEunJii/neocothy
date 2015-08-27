@@ -1,6 +1,8 @@
 package com.netcruz.iims.vo;
 
-public class IpinfoVo {
+
+
+public class IpinfohistoryVo {
 	private int id;
 	private String category;
 	private String network;

@@ -19,12 +19,12 @@ public class AddressDao {
 	}
 	
 	public List<AddressVo> getList(){
-		System.out.println("AddressDao.getList");
+	
 		return sqlSession.selectList("AddressMapper.list");
 	}
 	
 	public AddressVo getSelect(int id){
-		System.out.println("getSelect");
+
 		return sqlSession.selectOne("AddressMapper.get", id);
 	}
 	

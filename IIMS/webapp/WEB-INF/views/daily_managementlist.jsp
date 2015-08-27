@@ -27,7 +27,28 @@
 <title>작업 이력 관리</title>
 
 </head>
-
+<style>
+  paginationclass{
+    
+margin: 19px 28px;    
+}
+.paginationclass span{
+    margin-left:15px;
+    display:inline-block;
+}
+.pagination-controle li{
+    display: inline-block;
+}
+.pagination-controle button{
+    font-size: 12px;
+    margin-top: -26px;
+    cursor:pointer;
+    
+}
+.pagination{
+    margin:5px 12px !important;
+}
+</style>
 <body>
 	
 	
@@ -41,27 +62,46 @@
 <!--          <button class="btn btn-default" ng-click="addNewItem(actionText)">검색 </button> -->
 <!--          </div> -->
 			<div id="table1">
-			<table class="table table-striped center">
+			<div class="col-ms-3" >              
+              Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
+            </div>
+			<table class="table table-striped">
 				<tr>
 
-					<td>일자</td>
-					<td>구분</td>
-					<td>주요업무</td>
-					<td>특이사항</td>
-					<td>비고</td>
+					<th>일자</th>
+					<th>구분</th>
+					<th>주요업무</th>
+					<th>특이사항</th>
+					<th>비고</th>
 
 				</tr>
 
-				<tr ng-repeat="x in management" data-toggle="modal"
-					ng-click="do_some_action(x)">
+				<tr ng-repeat="x in management | pagination: curPage * pageSize | limitTo: pageSize | filter:test"
+					data-toggle="modal" ng-click="do_some_action(x)" >
 					
 					<td>{{x.date}}</td>
-					<td>{{x.period_type}}</td>
-					<td>{{x.title}}</td>
-					<td>{{x.contents}}</td>
-					<td>{{x.note}}</td>
+					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.period_type}}</nobr></div></td>
+					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.title}}</nobr></div></td>
+					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.contents}}</nobr></div></td>
+					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.note}}</nobr></div></td>
 				</tr>
 			</table>
+			
+			<center>
+				<div class="pagination pagination-centered" ng-show="management.length">
+					<ul class="pagination-controle pagination">
+	 					<li>
+	  						<button type="button" class="btn btn-primary" ng-disabled="curPage == 0" ng-click="curPage=curPage-1"> &lt; PREV</button>
+	 					</li>	 					
+	 					<li>
+	 						<span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+	 					</li>	 					
+	 					<li>
+	 						<button type="button" class="btn btn-primary" ng-disabled="curPage >= management.length/pageSize - 1" ng-click="curPage = curPage+1">NEXT &gt;</button>
+	 					</li>
+					</ul>
+				</div>
+			</center>
 
 
 			<div align="right">
@@ -85,16 +125,17 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">추가</h4>
 						</div>
 						<div class="modal-body">
 						<form action="insert.do" method="post">
 
 							
 							<label>일자</label> 
-							<input type="text" class="form-control" name="date" /> <br> 
+							<input type="date"  name="date" ng-model="example.value" class="form-control"  
+      						 	placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 							<label>구분</label> 
-								<select name="period_type">
+								<select name="period_type" class="form-control">
 								  <option>일일 업무일지</option>
 								  <option>주간 업무일지</option>
 								  <option>월간 업무일지</option>					  
@@ -108,6 +149,7 @@
 							<input type="hidden" name="category" value="daily"> 						
 							</div>				
 						
+						<br><br><br>
 						<div class="modal-footer">							
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
 							<input type="submit" class="btn btn-primary" value="등록" />
@@ -122,7 +164,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">Detail</h4>
 						</div>
 						<div class="modal-body">
 							
@@ -134,10 +176,10 @@
 									 <label >주요업무:</label>
 									 {{x.title}}<br>
 									 <label>특이사항:</label> 
-									 {{x.contents}} <br>
+									 <pre> {{x.contents}}</pre> <br>
 									 <label>비고:</label> 
-									  {{x.note}}
-									<input type="hidden" name="category" value="work">
+									 <pre> {{x.note}} </pre>
+							
 								</div>
 							
 							</div>
@@ -165,14 +207,15 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">Add Widget</h4>
+							<h4 class="modal-title">수정</h4>
 						</div>
 						<div class="modal-body margin1">
 						
 							<form action="update.do">
 							<input type="hidden" class="form-control" name="id" value="{{x.id}}" />
-							<label>일지</label> 
-							<input type="text" class="form-control" name="date" value="{{x.date}}" /> <br> 
+							<label>일자</label> 
+							<input type="date"  name="date" ng-model="example.value" class="form-control"  
+      						 	placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 							<label>구분</label><br>
 							<select name="period_type" class="form-control" >
 								  <option>일일 업무일지</option>
@@ -190,7 +233,7 @@
 						
 						</div>
 						
-						
+						<br><br><br>
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
 							<input type="submit" class="btn btn-primary"  value="완료"/>
@@ -243,10 +286,24 @@
 							}
 						}).success(function(data, status, headers, config) {
 							$scope.management = data;
+							$scope.curPage = 0;
+							$scope.pageSize = 10;					
+						    $scope.numberOfPages = function() {
+							return Math.ceil($scope.management.length / $scope.pageSize);
+						    };	
 						}).error(function(data, status, headers, config) {
 							window.alert(status);
 						});
 					} ]);
+			
+					angular.module('myApp').filter('pagination', function()
+					{
+					 return function(input, start)
+					 {
+					  start = +start;
+					  return input.slice(start);
+					 };
+				});
 			
 		</script>
 		

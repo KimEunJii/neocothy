@@ -16,10 +16,7 @@ public class IpinfoService {
 	IpinfoDao ipinfoDao;
 	
 	public IpinfoVo registerIpinfo(IpinfoVo vo){
-		System.out.println("IpinfoService.registerIpinfo");
-		
-		
-		
+	
 		ipinfoDao.insert(vo);
 		return vo;
 	}
@@ -38,32 +35,14 @@ public class IpinfoService {
 	
 	
 	public IpinfoVo selectIpinfo(int id){
-		IpinfoVo vo = ipinfoDao.getOne(id);
+		IpinfoVo vo = ipinfoDao.getSelect(id);
 		return vo;
 	}
 	
-	public void update(IpinfoVo vo_update){
+	public void update(IpinfoVo vo){
 		
-		System.out.println("upadate ipinfoService");
-//		IpinfoVo vo = ipinfoDao.getOne(vo_update.getId());
-//		vo.setCategory(vo_update.getCategory());
-//		vo.setNetwork(vo_update.getNetwork());
-//		vo.setIp(vo_update.getIp());
-//		vo.setMask(vo_update.getMask());
-//		vo.setUsages(vo_update.getUsages());
-//		vo.setEquipment(vo_update.getEquipment());
-//		vo.setModel(vo_update.getModel());
-//		vo.setUsed(vo_update.getUsed());
-//		vo.setOs(vo_update.getOs());
-//		vo.setUse_dept(vo_update.getUse_dept());
-//		vo.setUser(vo_update.getUser());
-//		vo.setUse_term(vo_update.getUse_term());
-//		vo.setPer_date(vo_update.getPer_date());
-//		vo.setMody_date(vo_update.getMody_date());
-//		vo.setNote(vo_update.getNote());
-//		vo.setUser_id(vo_update.getUser_id());
-		//System.out.println("ipinfoServiceUpdate");
-		ipinfoDao.update(vo_update);
+		
+		ipinfoDao.update(vo);
 	}
 
 }
