@@ -71,7 +71,7 @@ public class IpinfoController {
 	public String updateIpinfo(IpinfoVo vo,HttpSession session,IpinfohistoryVo vo2){
 		try{
 		vo.setCategory(new String(vo.getCategory().getBytes("ISO-8859-1"),"euc-kr"));
-		vo.setNetwork(new String(vo.getCategory().getBytes("ISO-8859-1"),"euc-kr"));
+		vo.setNetwork(new String(vo.getNetwork().getBytes("ISO-8859-1"),"euc-kr"));
 		vo.setIp(new String(vo.getIp().getBytes("ISO-8859-1"),"euc-kr"));
 		vo.setMask(vo.getMask());
 		vo.setUsages(new String(vo.getUsages().getBytes("ISO-8859-1"),"euc-kr"));
@@ -89,7 +89,7 @@ public class IpinfoController {
 	} catch (UnsupportedEncodingException e) {
 		e.printStackTrace();
 	}			
-		
+		//ipinfo 미사용시 ipinfohistory insert db
 		if("미사용".equals(vo.getUsed())){
 			vo2.setCategory(vo.getCategory());
 			vo2.setNetwork(vo.getNetwork());

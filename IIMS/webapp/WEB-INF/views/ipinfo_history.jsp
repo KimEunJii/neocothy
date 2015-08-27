@@ -89,28 +89,23 @@ margin: 19px 28px;
 				<th>모델명</th>
 				<th>사용여부</th>
 				<th>반납일자</th>
-				<th>비고</th>
 
-			</tr>
-			
+			</tr>			
 				<tr ng-repeat="x in ipinfohistory | pagination: curPage * pageSize | limitTo: pageSize"
 					data-toggle="modal" ng-click="do_some_action(x)" id="ipinfohistorytable">
 					
 				
-				<td>{{x.category}}</td>
-				<td>{{x.network}}</td>
-				<td>{{x.ip}}</td>
-				<td>{{x.mask}}</td>
-				<td>{{x.usages}}</td>
-				<td>{{x.equipment}}</td>
-				<td>{{x.model}}</td>
-				<td>{{x.used}}</td>
-				<td>{{x.mody_date}}</td>
-				<td>{{x.note}}</td>
+					<td><div style="position:relative; width:50px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.category}}</nobr></div></td>
+					<td><div style="position:relative; width:50px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.network}}</nobr></div></td>
+					<td><div style="position:relative; width:50px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.ip}}</nobr></div></td>
+					<td>{{x.mask}}</td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.usages}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.equipment}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.model}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.used}}</nobr></div></td>
+					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.mody_date}}</nobr></div></td>
 
 			</tr>		
-			
-
 		</table>
 		
 <div class="pagination pagination-centered" ng-show="ipinfohistory.length">
