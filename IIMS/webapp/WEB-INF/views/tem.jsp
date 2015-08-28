@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=euc-kr"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +61,8 @@
 									class="glyphicon glyphicon-home"></i> HOME</a></li>
 							<li class="active"><a href="/ipinfo/list.do"><i
 									class="glyphicon glyphicon-home"></i> IP 정보관리</a></li>
+							<li class="active"><a href="/ipinfohistory/list.do">
+							<i	class="glyphicon glyphicon-home"></i> IP 이력관리</a></li>
 							<li><a href="/address/list.do"><i
 									class="glyphicon glyphicon-envelope"></i> 긴급 연락처</a></li>
 							<li><a href="/management/work_list.do"><i

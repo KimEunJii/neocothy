@@ -19,6 +19,7 @@
 		<typeAlias alias="AddressVo" type="com.netcruz.iims.vo.AddressVo" />
 		<typeAlias alias="ManagementVo" type="com.netcruz.iims.vo.ManagementVo" />
 		<typeAlias alias="IpinfoVo" type="com.netcruz.iims.vo.IpinfoVo" />
+		<typeAlias alias="IpinfohistoryVo" type="com.netcruz.iims.vo.IpinfohistoryVo" />
 	</typeAliases>
 	
 	 <!-- SQL Definition :: file include -->
@@ -28,6 +29,7 @@
 		<mapper resource="mapping/AddressMapper.xml"/>
 		<mapper resource="mapping/ManagementMapper.xml"/>
 		<mapper resource="mapping/IpinfoMapper.xml"/>
+		<mapper resource="mapping/IpinfohistoryMapper.xml"/>
 	</mappers>
 
 </configuration>

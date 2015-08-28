@@ -16,6 +16,7 @@
 	
     
     <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="/assets/js/require.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.angularjs.org/1.3.1/angular.min.js"></script>
     <script src="//code.angularjs.org/1.3.1/angular-route.min.js"></script>
@@ -164,34 +165,54 @@ margin: 19px 28px;
 						<div class="modal-body">
 							<form action="insert.do" method="post">
 
-
-								<label>분류</label> <input type="text" class="form-control"
-									name="category" /><br> <label>망구분</label> <input
-									type="text" class="form-control" name="network" /><br> <label>아이피</label>
-								<input type="text" class="form-control" name="ip" /><br> <label>mask</label>
-								<input type="text" class="form-control" name="mask" /><br>
-								<label>용도(부서)</label> <input type="text" class="form-control"
-									name="usages" /><br> <label>장비명(사용자)</label> <input
-									type="text" class="form-control" name="equipment" /><br>
-								<label>모델명</label> <input type="text" class="form-control"
-									name="model" /><br> <label>사용여부</label> <input
-									type="text" class="form-control" name="used" /><br> <label>OS</label>
-								<input type="text" class="form-control" name="os" /><br> <label>사용부서</label>
-								<input type="text" class="form-control" name="use_dept" /><br>
-								<label>사용자</label> <input type="text" class="form-control"
-									name="user" /><br> <label>사용기간</label> <input type="text"
-									class="form-control" name="use_term" /><br> <label>승인일자</label>
-								<input type="text" class="form-control" name="per_date" /><br>
-								<label>수정일자</label> <input type="text" class="form-control"
-									name="mody_date" /><br> <label>비고</label> <input
-									type="text" class="form-control" name="note" /><br> <label>등록자</label>
+								<label>분류</label> 
+									<select name="category" id="category" class="form-control">
+									<option value="전체">전체</option>
+									<option value="대역">대역</option>
+									<option value="host">host</option>		
+								</select><br>
+								<label>망구분</label> 
+								<select name="network" class="form-control"  size=1>
+									<option value="내부망">내부망</option>
+									<option value="대국민망">대국민망</option>
+								</select><br> 
+								<label>아이피</label>
+								<input type="text" class="form-control" name="ip" id="ip" /><br> 
+								<label>mask</label>
+								<input type="text" class="form-control" name="mask" id="mask"/><br>
+								<label>용도(부서)</label> 
+								<input type="text" class="form-control"	name="usages" id="usages"/><br> 
+								<label>장비명(사용자)</label> 
+								<input type="text" class="form-control" name="equipment" id="equipment"/><br>
+								<label>모델명</label>
+								<input type="text" class="form-control"	name="model" /><br> 
+								<label>사용여부</label>
+								<select class="form-control" name="used">
+									 <option value="사용">사용</option>
+									 <option value="미사용">미사용</option>
+								</select> <br> 
+								<label>OS</label>
+								<input type="text" class="form-control" name="os" /><br> 
+								<label>사용부서</label>
+								<input type="text" class="form-control" name="use_dept" id="use_dept" /><br>
+								<label>사용자</label> 
+								<input type="text" class="form-control"	name="user" /><br> 
+								<label>사용기간</label> 
+								<input type="text" class="form-control" name="use_term" /><br> 
+								<label>승인일자</label>
+								<input type="text" class="form-control" name="per_date" id="per_date"/><br>
+								<label>수정일자</label> 
+								<input type="text" class="form-control"	name="mody_date" /><br> 
+								<label>비고</label> 
+								<input type="text" class="form-control" name="note" /><br> 
+								<label>등록자</label>
 								<input type="text" class="form-control" name="user_id" /><br>
 								<br><br><br>
 								
 								
 								<div class="modal-footer">
 									<a href="#" data-dismiss="modal" class="btn">Close</a> 
-									<input type="submit" class="btn btn-primary" value="등록" />
+									<input type="submit" class="btn btn-primary" value="등록"  id="insert"/>
 								</div>
 							</form>
 
@@ -233,7 +254,7 @@ margin: 19px 28px;
 						
 						<div class="modal-footer">
 							
-								<a href="#" data-dismiss="modal" class="btn">Close</a>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">close</button>
 							<%
 								if ("master".equals(vo.getRole())) {
 							%>
@@ -268,31 +289,41 @@ margin: 19px 28px;
 							<form action="update.do">
 							<input type="hidden" class="form-control" name="id" value="{{x.id}}" />
 							<label>분류</label> 
-							<input type="text" class="form-control" name="category" value="{{x.category}}" /> <br> 
+							<select name="category" class="form-control">
+								<option value="전체">전체</option>
+								<option value="대역">대역</option>
+								<option value="host">host</option>		
+							</select> <br> 
 							<label>망구분</label> 
-							<input type="text" class="form-control" name="network" value="{{x.network}}"  /> <br>
+							<select name="network" class="form-control"  size=1>
+								<option value="내부망">내부망</option>
+								<option value="대국민망">대국민망</option>
+							</select> <br>
 							<label>아이피</label>
-							<input type="text" class="form-control" name="ip" value="{{x.ip}}" /><br> 
+							<input type="text" class="form-control" name="ip" id="ip" value="{{x.ip}}" required/><br> 
 							<label>mask</label> 
-							<input type="text" class="form-control" name="mask" value="{{x.mask}}"/><br>
+							<input type="text" class="form-control" name="mask"  id="mask" value="{{x.mask}}" required/><br>
 							<label>용도(부서)</label> 
-							<input type="text" class="form-control"  name="usages" value="{{x.usages}}"/><br>
+							<input type="text" class="form-control"  name="usages" id="usages" value="{{x.usages}}" required/><br>
 							<label>장비명(사용자)</label>
-							<textarea class="form-control" name="equipment">{{x.equipment}}</textarea><br>
+							<textarea class="form-control" name="equipment" id="equipment" required>{{x.equipment}}</textarea><br>
 							<label>모델명</label>
-							<input type="text" class="form-control" name="model" value="{{x.model}}"/><br>
-							<label>사용여부</label>
-							<input type="text" class=form-control name="used" value="{{x.used}}"/><br>
+							<input type="text" class="form-control" name="model" value="{{x.model}}" /><br>
+							<label>사용여부</label>							
+							<select name="used" class="form-control" >
+									 	<option value="사용">사용</option>
+									 	<option value="미사용">미사용</option>
+							</select><br>
 							<label>OS</label>
 							<input type="text" class="form-control" name="os" value="{{x.os}}"/><br>
 							<label>사용부서</label>
-							<input type="text" class="form-control" name="use_dept" value="{{x.use_dept}}"/><br>
+							<input type="text" class="form-control" name="use_dept" id="use_dept"  value="{{x.use_dept}}" required/><br>
 							<label>사용자</label>
 							<input type="text" class="form-control" name="user" value="{{x.user}}"/><br>
 							<label>사용기간</label>
 							<input type="text" class="form-control" name="use_term" value="{{x.use_term}}"/><br>
 							<label>승인일자</label>
-							<input type="text" class="form-control" name="per_date" value="{{x.per_date}}"/><br>
+							<input type="text" class="form-control" name="per_date" id="per_date"  value="{{x.per_date}}" required/><br>
 							<label>수정일자</label>
 							<input type="text" class="form-control" name="mody_date" value="{{x.mody_date}}"/><br>
 							<label>비고</label>
@@ -305,8 +336,8 @@ margin: 19px 28px;
 					
 					<br><br><br>	
 					<div class="modal-footer">
-							<input type="submit" class="btn btn-primary" value="완료" /> 
-							<a href="#" class="btn btn-primary" data-dismiss="modal">취소</a>
+							<input type="submit" class="btn btn-primary" value="완료" id="update"/> 
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">close</button>
 
 							</form>							
 						</div>
@@ -331,6 +362,8 @@ margin: 19px 28px;
 							$("#addWidgetModal3").modal('show', function() {
 
 							});
+							
+					
 						}
 
 						$scope.do_some_action = function(x) {
@@ -383,7 +416,88 @@ margin: 19px 28px;
 			</script> 			
 					
 
+		<script type="text/javascript">
+		$("#insert").on('click', function(){
+			if($("#ip").val()==""){
+				alert("ip를 입력해 주세요");
+				$("#ip").focus();
+				return false;
+			}
+			if($("#mask").val()==""){
+				alert("mask를 입력해 주세요");
+				$("#mask").focus();
+				return false;
+			}
+			if($("#usages").val()==""){
+				alert("용도(부서)를 입력해 주세요");
+				$("#usages").focus();
+				return false;
+			}
+			if($("#equipment").val()==""){
+				alert("장비(사용자)를 입력해 주세요");
+				$("#equipment").focus();
+				return false;
+			}
 		
+			if($("#use_dept").val()==""){
+				alert("사용부서를 입력해 주세요");
+				$("#use_dept").focus();
+				return false;
+			}
+			if($("#per_date").val()==""){
+				alert("승인일자 입력해 주세요");
+				$("#per_date").focus();
+				return false;
+			}
+			
+			if($("#category").val()=="전체"){
+				if($("#mask").val()<1 || $("#mask").val()>27){
+					alert("mask는 1~27만 허용됩니다.");
+					$("#mask").focus();
+					return false;
+				}
+			}
+			if($("#category").val()=="대역"){
+				if($("#mask").val()<24 || $("#mask").val()>34){
+					alert("mask는 24~34만 허용됩니다.");
+					$("#mask").focus();
+					return false;
+				}
+			}
+			if($("#category").val()=="host"){
+				if($("#mask").val()!=32){
+					alert("mask는 32만 허용됩니다.");
+					$("#mask").focus();
+					return false;
+				}
+			}
+		});
+		
+// 		$("#update").on('click', function(){
+
+// 			if($("#category").val()=="전체"){
+// 				if($("#mask").val()<1 || $("#mask").val()>27){
+// 					alert("mask는 1~27만 허용됩니다.");
+// 					$("#mask").focus();
+// 					return false;
+// 				}
+// 			}
+// 			if($("#category").val()=="대역"){
+// 				if($("#mask").val()<24 || $("#mask").val()>34){
+// 					alert("mask는 24~34만 허용됩니다.");
+// 					$("#mask").focus();
+// 					return false;
+// 				}
+// 			}
+// 			if($("#category").val()=="host"){
+// 				if($("#mask").val()!=32){
+// 					alert("mask는 32만 허용됩니다.");
+// 					$("#mask").focus();
+// 					return false;
+// 				}
+// 			}
+// 		});
+		</script>
 
 
 </body>

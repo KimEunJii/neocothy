@@ -1,7 +1,8 @@
-<%@page import="com.netcruz.iims.vo.UserVo"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.netcruz.iims.vo.AddressVo"%>
+
 <%@page import="java.util.List"%>
+<%@page import="com.netcruz.iims.vo.UserVo"%>
+<%@page import="com.netcruz.iims.vo.AddressVo"%>
 <%@ page language="java" contentType="text/html; charset=euc-kr"
 	pageEncoding="utf-8"%>
 
@@ -10,78 +11,67 @@
 <%
 	UserVo vo = (UserVo) session.getAttribute("userFlag");
 %>
-
 <head>
 <script src="./js/angular.js"></script>
 <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.angularjs.org/1.3.1/angular.min.js"></script>
 <script src="//code.angularjs.org/1.3.1/angular-route.min.js"></script>
 <script src="//code.angularjs.org/1.3.1/angular-resource.min.js"></script>
 <script src="//code.angularjs.org/1.3.1/angular-cookies.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/hanna.css">
-    <style>
-      body {
-      
-        font-family: 'Hanna', serif;
-        font-size: 48px;
-      }
-    </style>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-	rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/hanna.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
 <title>긴급 연락처 [NETCRUZ]</title>
 </head>
-
 <!-- Style -->
 <style>
-  paginationclass{
-    
-margin: 19px 28px;    
+paginationclass {
+	margin: 19px 28px;
 }
-.paginationclass span{
-    margin-left:15px;
-    display:inline-block;
+
+.paginationclass span {
+	margin-left: 15px;
+	display: inline-block;
 }
-.pagination-controle li{
-    display: inline-block;
+
+.pagination-controle li {
+	display: inline-block;
 }
-.pagination-controle button{
-    font-size: 12px;
-    margin-top: -26px;
-    cursor:pointer;
-    
+
+.pagination-controle button {
+	font-size: 12px;
+	margin-top: -26px;
+	cursor: pointer;
 }
-.pagination{
-    margin:5px 12px !important;
+
+.pagination {
+	margin: 5px 12px !important;
 }
 </style>
 
 
 
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-
 	<div class="panel container">
 		<div class="input-group" id="table1" ng-app="myApp" ng-controller="UserCtrl">
+		
 			<center>
 				<h1>긴급 연락처</h1>
 			</center>
+			
 			<div class="col-ms-3" >              
               Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
             </div>
 		
 			<table class="table table-striped" >
-				<tr class="">
-				
+			
+				<tr>
 					<th>구분</th>
 					<th>업체명</th>
 					<th>담당자 PM</th>
@@ -99,10 +89,7 @@ margin: 19px 28px;
 					<th>작성자</th>
 				</tr>
 				
-			
-				<tr ng-repeat="x in address  | pagination: curPage * pageSize | limitTo: pageSize | filter:test"
-				 st-table="address" data-toggle="modal" ng-dblclick="detailpopup(x)" >
-					
+				<tr ng-repeat="x in address  | pagination: curPage * pageSize | limitTo: pageSize | filter:test" st-table="address" data-toggle="modal" ng-dblclick="detailpopup(x)" >
 					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.category}}</nobr></div></td>
 					<td><div style="position:relative; width:100px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.partner}}</nobr></div></td>
 					<td><div style="position:relative; width:70px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.pm}}</nobr></div></td>
@@ -127,6 +114,7 @@ margin: 19px 28px;
 						</td>
 					</tr>
 				</tfoot>
+				
 			</table>
 			
 			<center>
@@ -165,11 +153,8 @@ margin: 19px 28px;
 					<%
 						}
 					%>
-
 					<br> <br>
 				</div>
-
-		
 
 			<!-- detail Modal -->
 			<div class="modal detailModal">
@@ -196,7 +181,6 @@ margin: 19px 28px;
 						</div>
 
 						<div class="modal-footer">
-
 							<a href="#" data-dismiss="modal" class="btn">Close</a>
 							<%
 								if ("master".equals(vo.getRole())) {
@@ -213,7 +197,6 @@ margin: 19px 28px;
 							<%
 								} else
 							%>
-
 						</div>
 					</div>
 				</div>
@@ -232,33 +215,27 @@ margin: 19px 28px;
 
 							<form action="updateWork.do">
 								<input type="hidden" name="id" value="{{edit.id}}" /> <br>
-								구분 : <input type="text" name="category"
-									value="{{edit.category}}" /> <br> 업체명 : <input
-									type="text" name="partner" value="{{edit.partner}}" /> <br>
-								담당자 PM : <input type="text" name="pm" value="{{edit.pm}}" /> <br>
-								연락처 : <input type="text" name="pm_phone"
-									value="{{edit.pm_phone}}" /> <br> E-mail : <input
-									type="text" name="pm_email" value="{{edit.pm_email}}" /> <br>
-								담당 업무 : <input type="text" name="task" value="{{edit.task}}" />
-								<br> 담당 장비 : <input type="text" name="equipment"
-									value="{{edit.equipment}}" /> <br> 담당 엔지니어 : <input
-									type="text" name="engineer" value="{{edit.engineer}}" /> <br>
-								연락처 : <input type="text" name="engineer_phone"
-									value="{{edit.engineer_phone}}" /> <br> 엔지니어 E-mail : <input
-									type="text" name="engineer_email"
-									value="{{edit.engineer_email}}" /> <br> 정기점검 : <input
-									type="text" name="test_date" value="{{edit.test_date}}" /> <br>
-								점검방식 : <input type="text" name="test_type"
-									value="{{edit.test_type}}" /> <br> 담당자 : <input
-									type="text" name="manager" value="{{edit.maanger}}" /> <br>
+								구분 : <input type="text" name="category" id="category" value="{{edit.category}}" required /> <br>
+								업체명 : <input type="text" name="partner" id="partner" value="{{edit.partner}}" required /> <br>
+								담당자 PM : <input type="text" name="pm" id="pm" value="{{edit.pm}}" required/> <br>
+								연락처 : <input type="text" name="pm_phone" id="pm_phone" value="{{edit.pm_phone}}" required/> <br> 
+								E-mail : <input	type="text" name="pm_email"  id="pm_email" value="{{edit.pm_email}}" required/> <br>
+								담당 업무 : <input type="text" name="task" id="task" value="{{edit.task}}" required /><br> 
+								담당 장비 : <input type="text" name="equipment" id="equipment" value="{{edit.equipment}}" required/> <br> 
+								담당 엔지니어 : <input type="text" name="engineer" value="{{edit.engineer}}" /> <br>
+								연락처 : <input type="text" name="engineer_phone" id="engineer_phone" value="{{edit.engineer_phone}}" /> <br> 
+								엔지니어 E-mail : <input type="text" name="engineer_email"	value="{{edit.engineer_email}}" /> <br>
+								정기점검 : <input type="text" name="test_date" value="{{edit.test_date}}" /> <br>
+								점검방식 : <input type="text" name="test_type"	value="{{edit.test_type}}" /> <br> 
+								담당자 : <input type="text" name="manager" value="{{edit.maanger}}" /> <br>
 								비고 : <textarea name="note" class="form-control" rows="8" >{{edit.note}}</textarea> <br>
-								작성자 : <input type="text" name="user_id" value="{{edit.user_id}}" />
-								<br>
+								<input type="hidden" name="user_id" value="{{edit.user_id}}" />
+								<br><br><br><br>
 						</div>
 
 						<div class="modal-footer">
-							<input type="submit" class="btn btn-primary" value="완료" /> <a
-								href="#" class="btn btn-primary" data-dismiss="modal">취소</a>
+							<input type="submit" class="btn btn-primary" value="완료" id="update"/> 
+							<a href="#" class="btn btn-primary" data-dismiss="modal">취소</a>
 
 							</form>
 						</div>
@@ -279,34 +256,34 @@ margin: 19px 28px;
 						<div class="modal-body">
 							<form action="insert.do" method="post">
 								<label>Category</label>
-								<input type="text" class="form-control" name="category"/><br><br>
+								<input type="text" class="form-control" name="category" id="category"/><br><br>
 								
 								<label>Partner</label>
-								<input type="text" class="form-control" name="partner"/><br><br>
+								<input type="text" class="form-control" name="partner" id="partner"/><br><br>
 								
 								<label>PM</label>
-								<input type="text" class="form-control" name="pm"/><br><br>
+								<input type="text" class="form-control" name="pm" id="pm"/><br><br>
 								
 								<label>PM_Phone</label>
-								<input type="text" class="form-control" name="pm_phone"/><br><br>
+								<input type="text" class="form-control" name="pm_phone" id="pm_phone"/><br><br>
 								
 								<label>PM_Email</label>
-								<input type="text" class="form-control" name="pm_email"/><br><br>
+								<input type="text" class="form-control" name="pm_email" id="pm_email"/><br><br>
 								
 								<label>Task</label>
-								<input type="text" class="form-control" name="task"/><br><br>
+								<input type="text" class="form-control" name="task" id="task"/><br><br>
 								
 								<label>Equipment</label>
-								<input type="text" class="form-control" name="equipment"/><br><br>
+								<input type="text" class="form-control" name="equipment" id="equipment"/><br><br>
 								
 								<label>Engineer</label>
-								<input type="text" class="form-control" name="engineer"/><br><br>
+								<input type="text" class="form-control" name="engineer" /><br><br>
 								
 								<label>Engineer_phone</label>
 								<input type="text" class="form-control" name="engineer_phone"/><br><br>
 								
 								<label>Engineer_email</label>
-								<input type="text" class="form-control" name="engineer_email"/><br><br>
+								<input type="text" class="form-control" name="engineer_email" /><br><br>
 								
 								<label>Test_Date</label>
 								<input type="text" class="form-control" name="test_date"/><br><br>
@@ -318,14 +295,17 @@ margin: 19px 28px;
 								<input type="text" class="form-control" name="manager"/><br><br>
 								
 								<label>NOTE</label>
-								<textarea name="note" class="form-control" rows="8"></textarea><br><br>
+								<textarea name="note" class="form-control" rows="8"></textarea>
 								
-								<label>User_ID</label>
-								<input type="text" class="form-control" name="user_id"/><br><br><br><br>
 								
+								<input type="hidden" class="form-control" name="user_id" value="<%=vo.getId()%>"/>
+								<br><br><br><br>
+
+								<br /><br/><br/>
 								<!-- Button -->
+							
 								<p align="right">
-									<input type="submit" class="btn btn-primary" value="등록"/>
+									<input type="submit" class="btn btn-primary" value="등록" id="insert" />
 									<a href="#" class="btn btn-primary" data-dismiss="modal" class="btn">취소</a>
 								</p>
 							</form>	
@@ -333,8 +313,6 @@ margin: 19px 28px;
 					</div>				
 				</div>			
 			</div>
-			
-
 		</div>
 	</div>
 
@@ -343,32 +321,25 @@ margin: 19px 28px;
 
 		myApp.controller('UserCtrl', [ '$scope', '$http',
 				function($scope, $http) {
-			
 					//
 					$scope.address = '';
 					$scope.selected = '';
 					$scope.edit = '';
-		
 					
 					$scope.detailpopup = function(x) {
-
-						$scope.selected = x;
-
-						$('.detailModal').modal('show', function() {
-
+							$scope.selected = x;
+							$('.detailModal').modal('show', function() {
 						});
 					}
 
 					$scope.editpopup = function(selected) {
 						$scope.edit = selected;
 						$('.editModal').modal('show', function() {
-							
 						});
 					}
 					
 					$scope.addpopup = function(){
 						$(".addDataModal").modal('show', function(){
-							
 						});
 					}
 
@@ -400,6 +371,47 @@ margin: 19px 28px;
 				 		};
 					});
 	</script>
+	
+	<script type="text/javascript">
+		$("#insert").on('click', function(){
+			if($("#category").val()==""){
+				alert("구분을 입력해 주세요");
+				$("#category").focus();
+				return false;
+			}
+			if($("#partner").val()==""){
+				alert("업체명을 입력해 주세요");
+				$("#partner").focus();
+				return false;
+			}	
+			if($("#pm").val()==""){
+				alert("담당자 PM을 입력해 주세요");
+				$("#pm").focus();
+				return false;
+			}	
+			if($("#pm_phone").val()==""){
+				alert("PM 연락처를 입력해 주세요");
+				$("#pm_phone").focus();
+				return false;
+			}	
+			if($("#pm_email").val()==""){
+				alert("PM e-mail을 입력해 주세요");
+				$("#pm_email").focus();
+				return false;
+			}	
+			if($("#task").val()==""){
+				alert("담당 업무를 입력해 주세요");
+				$("#task").focus();
+				return false;
+			}	
+			if($("#equipment").val()==""){
+				alert("담당 장비를 입력해 주세요");
+				$("#equipment").focus();
+				return false;
+			}	
+		});
+		
 
-</body>
+	</script>
+	</body>
 </html>

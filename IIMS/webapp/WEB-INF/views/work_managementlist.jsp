@@ -150,7 +150,7 @@ margin: 19px 28px;
 							<input type="date"  name="date" ng-model="example.value" class="form-control"
       						 placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 							<label>대상장비</label> 
-							<input type="text" class="form-control" name="equipment" /> <br> 
+							<input type="text" class="form-control" name="equipment" id="equipment" /> <br> 
 							<label>작업명</label>
 							<input type="text" class="form-control" name="title" /><br>
 							<label>내용</label>
@@ -162,7 +162,7 @@ margin: 19px 28px;
 
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn">Close</a>
-							<input	type="submit" class="btn btn-primary" value="등록" />
+							<input	type="submit" class="btn btn-primary" value="등록" id="insert"/>
 							</form>
 						</div>
 					</div>
@@ -235,21 +235,22 @@ margin: 19px 28px;
 								<input type="date"  name="date" ng-model="example.value" class="form-control"  
       						 	placeholder="yyyy-MM-dd" min="1999-01-01" max="2500-12-31" required /><br>
 								<label>대상장비</label> 
-								<input type="text" class="form-control"	name="equipment" value="{{x.equipment}}" /> <br> 
+								<input type="text" class="form-control"	name="equipment" id="equipment" 
+								value="{{x.equipment}}" required/> <br> 
 								<label>작업명</label>
 								<input type="text" class="form-control" name="title" value="{{x.title}}"  wrap="hard"/><br> 
 								<label>주요내용</label>
 								<textarea  rows="8" name="contents" class="form-control" >{{x.contents}}</textarea>	<br>
 						    	 <label>비고</label>
 							
-								<textarea  name="note" class="form-control" >{{x.note}}</textarea>
-								<input type="hidden" name="category" value="work">
+								<textarea rows="8" name="note" class="form-control" >{{x.note}}</textarea>
+								<input type="hidden" name="category" value="work"><br><br><br><br><br><br><br><br>
 						</div>
 
 						<br><br><br>
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn">Close</a> 
-							<input type="submit" class="btn btn-primary" value="완료" />
+							<input type="submit" class="btn btn-primary" value="완료" id="update"/>
 							</form>
 						</div>
 					</div>
@@ -334,12 +335,19 @@ margin: 19px 28px;
 		
 	
 	myApp.controller('UserCtrl', UserCtrl);
-
-
-		
-
 		
 	</script>
+	
+		<script type="text/javascript">
+		$("#insert").on('click', function(){
+			if($("#equipment").val()==""){
+				alert("대상장비를 입력해 주세요");
+				$("#equipment").focus();
+				return false;
+			}	
+		});
+		
+		</script>
 	
 
 
