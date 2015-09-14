@@ -1,20 +1,17 @@
 package com.netcruz.iims.controller;
 
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -122,17 +119,45 @@ public class ManagementController {
 	
 	@RequestMapping("/update.do")
 	public String updateManagement(ManagementVo vo,HttpSession session){
-		UserVo userFlag = (UserVo)session.getAttribute("userFlag");
-		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy.MM.dd HH:mm:ss", Locale.KOREA );
-		Date today = new Date(); 
-		String updateDate = formatter.format ( today );
-		String note = vo.getNote();
+		
+		try{
+			if(vo.getCategory() != null){
+				vo.setCategory(new String(vo.getCategory().getBytes("ISO-8859-1"), "euc-kr"));
+			}
+			if(vo.getCompany() != null){
+				vo.setCompany(new String(vo.getCompany().getBytes("ISO-8859-1"), "euc-kr"));
+			}
+			if(vo.getContents() != null){
+				vo.setContents(new String(vo.getContents().getBytes("ISO-8859-1"), "euc-kr"));
+			}
+			if(vo.getDate() != null){
+				vo.setDate(new String(vo.getDate().getBytes("ISO-8859-1"), "euc-kr"));
+			}
+			if(vo.getEquipment() != null){
+				vo.setEquipment(new String(vo.getEquipment().getBytes("ISO-8859-1"), "euc-kr"));
+			}
+			if(vo.getPeriod_type() != null){
+				vo.setPeriod_type(new String(vo.getPeriod_type().getBytes("ISO-8859-1"), "euc-kr"));
+			}
+			if(vo.getTitle() != null){
+				vo.setTitle(new String(vo.getTitle().getBytes("ISO-8859-1"), "euc-kr"));
+			}
+			if(vo.getNote() != null){
+				UserVo userFlag = (UserVo)session.getAttribute("userFlag");
+				SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy.MM.dd HH:mm:ss", Locale.KOREA );
+				Date today = new Date(); 
+				String updateDate = formatter.format ( today );
+				String note = new String(vo.getNote().getBytes("ISO-8859-1"), "euc-kr");
 
-		String[] result = note.split("수정자");
-		String str1 = result[0] + "\n" + "수정자: " + userFlag.getName() + "\n" + "수정 일자: " + updateDate; 
-
-		vo.setNote(str1);
-
+				String[] result = note.split("수정자");
+				String str1 = result[0] + "\n" + "수정자: " + userFlag.getName() + "\n" + "수정 일자: " + updateDate; 
+				
+				vo.setNote(str1);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		managementService.update(vo);
 	
 		

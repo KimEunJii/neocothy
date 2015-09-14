@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.netcruz.iims.vo.AddressVo"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=euc-kr"
 	pageEncoding="UTF-8"%>
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -49,7 +49,7 @@ margin: 19px 28px;
     margin:5px 12px !important;
 }
 </style>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 	
 	
 	<div class="panel container">  
@@ -77,7 +77,7 @@ margin: 19px 28px;
 				</tr>
 
 				<tr ng-repeat="x in management | pagination: curPage * pageSize | limitTo: pageSize | filter:test"
-					data-toggle="modal" ng-click="do_some_action(x)" >
+					data-toggle="modal" ng-dblclick="do_some_action(x)" >
 					
 					<td>{{x.date}}</td>
 					<td><div style="position:relative; width:200px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.period_type}}</nobr></div></td>
@@ -141,7 +141,7 @@ margin: 19px 28px;
 								  <option>월간 업무일지</option>					  
 								</select><br>
 							<label>주요업무</label>
-							<input type="text" class="form-control" name="title" /><br> 
+							<input type="text" class="form-control" name="title" id="title"/><br> 
 							<label>특이사항</label>
 							<input type="text" class="form-control" name="contents" /><br> 						
 							<label>비고</label> 
@@ -152,7 +152,7 @@ margin: 19px 28px;
 						<br><br><br>
 						<div class="modal-footer">							
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
-							<input type="submit" class="btn btn-primary" value="등록" />
+							<input type="submit" class="btn btn-primary" value="등록" id="insert"/>
 							</form>
 						</div></div>
 		</div></div>
@@ -224,7 +224,7 @@ margin: 19px 28px;
 							</select><br>
 							
 							<label>주요업무</label>
-							<input type="text" class="form-control" name="title" value="{{x.title}}" /><br> 
+							<input type="text" class="form-control" name="title" value="{{x.title}}" id="title" required/><br> 
 							<label>특이사항</label> 
 							<textarea name="contents" class="form-control" rows="8">{{x.contents}}</textarea> <br>
 							<label>비고</label> 
@@ -236,7 +236,7 @@ margin: 19px 28px;
 						<br><br><br>
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn">Close</a>							
-							<input type="submit" class="btn btn-primary"  value="완료"/>
+							<input type="submit" class="btn btn-primary"  value="완료" id="update"/>
 							</form>							
 						</div>
 					</div>
@@ -307,6 +307,16 @@ margin: 19px 28px;
 			
 		</script>
 		
+		
+		<script type="text/javascript">
+		$("#insert").on('click', function(){
+			if($("#title").val()==""){
+				alert("주요업무를 입력해 주세요");
+				$("#title").focus();
+				return false;
+			}	
+		});
+		</script>
 
 
 </body>

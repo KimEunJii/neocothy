@@ -29,10 +29,6 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="http://bradleytrager.github.io/angular-combo-box/bower_components/angular-combo-box/dist/angular-combo-box.min.js"></script>
-    
-        
-  
-    
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>IP 이력관리 [NETCRUZ]</title>
@@ -64,7 +60,7 @@ margin: 19px 28px;
 
 </style>
 
-<body>	
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">	
 		<div class="panel container">  
 		<div class="input-group" id = "table1" ng-app="myApp" ng-controller="UserCtrl">
 
@@ -72,12 +68,12 @@ margin: 19px 28px;
 			<h1>IP 이력관리</h1>
 		</center>	
 				
-				<div class="col-ms-3" >              
+			<div class="col-ms-3" >              
               Search <input ng-model="test" id="search" class="form-control" placeholder="Filter text">
             </div>	 			 		 
 
 
-		    <table class="table table-striped center"> 
+		    <table class="table table-striped"> 
 			<tr>
 				
 				<th>분류</th>
@@ -91,8 +87,8 @@ margin: 19px 28px;
 				<th>반납일자</th>
 
 			</tr>			
-				<tr ng-repeat="x in ipinfohistory | pagination: curPage * pageSize | limitTo: pageSize"
-					data-toggle="modal" ng-click="do_some_action(x)" id="ipinfohistorytable">
+				<tr ng-repeat="x in ipinfohistory | pagination: curPage * pageSize | limitTo: pageSize | filter:test"
+					data-toggle="modal" ng-dblclick="do_some_action(x)" id="ipinfohistorytable">
 					
 				
 					<td><div style="position:relative; width:50px; text-overflow:ellipsis; overflow:hidden; cursor:hand"><nobr>{{x.category}}</nobr></div></td>
@@ -108,25 +104,27 @@ margin: 19px 28px;
 			</tr>		
 		</table>
 		
-<div class="pagination pagination-centered" ng-show="ipinfohistory.length">
-	<ul class="pagination-controle pagination">
- 	<li>
-  	<button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
- 		ng-click="curPage=curPage-1"> &lt; PREV</button>
- 	</li>
- 	<li>
- 	<span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
- 	</li>
- 	<li>
- 	<button type="button" class="btn btn-primary"
- 		ng-disabled="curPage >= ipinfohistory.length/pageSize - 1"
- 		ng-click="curPage = curPage+1">NEXT &gt;</button>
- 	</li>
-	</ul>
-</div>
- 
+			<center>
+			<div class="pagination pagination-centered" ng-show="ipinfohistory.length">
+				<ul class="pagination-controle pagination">
+			 	<li>
+			  	<button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+			 		ng-click="curPage=curPage-1"> &lt; PREV</button>
+			 	</li>
+			 	<li>
+			 	<span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+			 	</li>
+			 	<li>
+			 	<button type="button" class="btn btn-primary"
+			 		ng-disabled="curPage >= ipinfohistory.length/pageSize - 1"
+			 		ng-click="curPage = curPage+1">NEXT &gt;</button>
+			 	</li>
+				</ul>
+			</div>
+ 			</center>
+ 			<br><br>
 
-	<div align="right">
+			<div align="right">
 					<%
 						if ("master".equals(vo.getRole())) {
 					%>
@@ -146,92 +144,93 @@ margin: 19px 28px;
 					%>
 					<br><br>
 					
-				</div>
+			</div>
+				
+				
+			<div class="modal" id="addWidgetModal3">
+				<div class="modal-dialog modal-size">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+							<h4 class="modal-title">추가</h4>
+						</div>
+						<div class="modal-body">
+							<form action="insert.do" method="post">
 
-<div class="modal" id="addWidgetModal3">
+								<label>분류</label> 
+									<select name="category" id="category" class="form-control">
+									<option value="전체">전체</option>
+									<option value="대역">대역</option>
+									<option value="host">host</option>		
+								</select><br>
+								<label>망구분</label> 
+								<select name="network" class="form-control"  size=1>
+									<option value="내부망">내부망</option>
+									<option value="대국민망">대국민망</option>
+								</select><br> 
+								<label>아이피</label>
+								<input type="text" class="form-control" name="ip" id="ip" /><br> 
+								<label>mask</label>
+								<input type="text" class="form-control" name="mask" id="mask"/><br>
+								<label>용도(부서)</label> 
+								<input type="text" class="form-control"	name="usages" id="usages"/><br> 
+								<label>장비명(사용자)</label> 
+								<input type="text" class="form-control" name="equipment" id="equipment"/><br>
+								<label>모델명</label>
+								<input type="text" class="form-control"	name="model" /><br> 
+								<label>사용여부</label>
+								<select class="form-control" name="used">
+									 <option value="사용">사용</option>
+									 <option value="미사용">미사용</option>
+								</select> <br> 
+								<label>OS</label>
+								<input type="text" class="form-control" name="os" /><br> 
+								<label>사용부서</label>
+								<input type="text" class="form-control" name="use_dept" id="use_dept" /><br>
+								<label>사용자</label> 
+								<input type="text" class="form-control"	name="user" /><br> 
+								<label>사용기간</label> 
+								<input type="text" class="form-control" name="use_term" /><br> 
+								<label>승인일자</label>
+								<input type="text" class="form-control" name="per_date" id="per_date"/><br>
+								<label>수정일자</label> 
+								<input type="text" class="form-control"	name="mody_date" /><br> 
+								<label>비고</label> 
+								<input type="text" class="form-control" name="note" /><br> 
+								<label>등록자</label>
+								<input type="text" class="form-control" name="user_id" /><br>
+								<br><br><br>
+								
+								
+							<div class="modal-footer">
+							<a href="#" data-dismiss="modal" class="btn">Close</a>
+							<input	type="submit" class="btn btn-primary" value="등록" id="insert"/>
+							</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+
+<div class="modal" id="addWidgetModal">
 	<div class="modal-dialog modal-size">
 		<div class="modal-content">
 			<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title">Add Widget</h4>
-					</div>
-		<div class="modal-body">
-		<form action="insert.do" method="post">
-		
-		
-		<label>분류</label>
-		<select name="category" class="form-control">
-			<option value="전체">전체</option>
-			<option value="대역">대역</option>
-			<option value="host">host</option>		
-		</select>
-		<br>
-		<label>망구분</label>
-		<select name="network" class="form-control"  size=1>
-			<option value="내부망">내부망</option>
-			<option value="대국민망">대국민망</option>
-		</select>
-		<br>
-		<label>아이피</label> 
-		<input type="text" class="form-control" name="ip"/><br>
-		<label>mask</label>
-		<input type="text" class="form-control" name="mask"/><br>
-		<label>용도(부서)</label>
-		<input type="text" class="form-control" name="usages"/><br>
-		<label>장비명(사용자)</label>
-		<input type="text" class="form-control" name="equipment" /><br>
-		<label>모델명</label>
-	    <input type="text" class="form-control" name="model" /><br>    
-	    <label>사용여부</label>
-	    <select  name="used" class="form-control"  size=1>
-	    	<option value="사용">사용</option>
-	    	<option value="미사용">미사용</option>  
-	    </select>
-	    <br>
-	    <label>OS</label>
-		<input type="text" class="form-control" name="os" /><br>
-		<label>사용부서</label>
-		<input type="text" class="form-control" name="use_dept" /><br>
-		<label>사용자</label>
-		<input type="text" class="form-control" name="user" /><br>
-		<label>사용기간</label>
-		<input type="text" class="form-control"  name="use_term" /><br>
-		<label>승인일자</label> 
-		<input type="text" class="form-control" name="per_date" /><br>
-		<label>수정일자</label> 
-		<input type="text" class="form-control" name="mody_date" /><br>
-		비고
-		<textarea name="note" class="form-control" ></textarea><br>		
-		<label>등록자</label>
-		<input type="text" class="form-control" name="user_id"/><br>
-		
-	
-			<a href="#" data-dismiss="modal" class="btn">Close</a>							
-			<input type="submit" class="btn btn-primary" value="등록" />
-		</form>
-		
+				<h4 class="modal-title">세부사항</h4>
 			</div>
-		</div>
-	</div>
-</div>
-
-
-
-			<div class="modal" id="addWidgetModal">
-				<div class="modal-dialog modal-size">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h4 class="modal-title">세부사항</h4>
-						</div>
-						<div class="modal-body">
+		<div class="modal-body">
 						id: {{x.id}} <br>
 						분류:{{x.category}}<br>
 						망구분:{{x.network}}<br>
 						아이피:{{x.ip}}<br>
 						mask:{{x.mask}}<br>
 						용도(부서):{{x.usages}}<br>
-						장비명(사용자):{{x.equipment}}<br>
+						장비명(사용자):<pre>{{x.equipment}}</pre><br>
 						모델명:{{x.model}}<br>
 						사용여부:{{x.used}}<br>
 						OS:{{x.os}}<br>
@@ -240,22 +239,107 @@ margin: 19px 28px;
 						사용기간:{{x.use_term}}<br>
 						승인일자:{{x.per_date}}<br>
 						수정일자:{{x.mody_date}}<br>
-						비고:{{x.note}}<br>
+						비고:<pre>{{x.note}}</pre><br>
 						등록자:{{x.user_id}}<br>
 					
 						</div>
-					
-						
+		
+	
 						<div class="modal-footer">
 							
-							<a href="#" data-dismiss="modal" class="btn">Close</a>							
+							<a href="#" data-dismiss="modal" class="btn">Close</a>
+							<%
+								if ("master".equals(vo.getRole())) {
+							%>
 							<button class="btn btn-primary" ng-click="do_some_action2(x)">수정</button>
-							<a href="delete.do?id={{x.id}}" class="btn btn-primary">삭제</a>
+							<a href="delete.do?id={{x.id}}"
+								class="btn btn-primary">삭제</a>
+							<%
+								} else if ("admin".equals(vo.getRole())) {
+							%>
+							<button class="btn btn-primary" ng-click="do_some_action2(x)">수정</button>
+							<a href="delete.do?id={{x.id}}"
+								class="btn btn-primary">삭제</a>
+							<%
+								} else
+							%>
+						</div>
+		</div>
+	</div>
+</div>
+
+
+
+			<div class="modal" id="addWidgetModal2">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+							<h4 class="modal-title">세부사항</h4>
+						</div>
+						
+						<div class="modal-body margin1">
+						<form action="update.do">
+						<input type="hidden" class="form-control" name="id" value="{{x.id}}" />
+							<label>분류</label> 
+							<select name="category" class="form-control">
+								<option value="전체">전체</option>
+								<option value="대역">대역</option>
+								<option value="host">host</option>		
+							</select> <br> 
+							<label>망구분</label> 
+							<select name="network" class="form-control"  size=1>
+								<option value="내부망">내부망</option>
+								<option value="대국민망">대국민망</option>
+							</select> <br>
+							<label>아이피</label>
+							<input type="text" class="form-control" name="ip" id="ip" value="{{x.ip}}" required/><br> 
+							<label>mask</label> 
+							<input type="text" class="form-control" name="mask"  id="mask" value="{{x.mask}}" required/><br>
+							<label>용도(부서)</label> 
+							<input type="text" class="form-control"  name="usages" id="usages" value="{{x.usages}}" required/><br>
+							<label>장비명(사용자)</label>
+							<textarea class="form-control" name="equipment" id="equipment" required>{{x.equipment}}</textarea><br>
+							<label>모델명</label>
+							<input type="text" class="form-control" name="model" value="{{x.model}}" /><br>
+							<label>사용여부</label>							
+							<select name="used" class="form-control" >
+									 	<option value="사용">사용</option>
+									 	<option value="미사용">미사용</option>
+							</select><br>
+							<label>OS</label>
+							<input type="text" class="form-control" name="os" value="{{x.os}}"/><br>
+							<label>사용부서</label>
+							<input type="text" class="form-control" name="use_dept" id="use_dept"  value="{{x.use_dept}}" required/><br>
+							<label>사용자</label>
+							<input type="text" class="form-control" name="user" value="{{x.user}}"/><br>
+							<label>사용기간</label>
+							<input type="text" class="form-control" name="use_term" value="{{x.use_term}}"/><br>
+							<label>승인일자</label>
+							<input type="text" class="form-control" name="per_date" id="per_date"  value="{{x.per_date}}" required/><br>
+							<label>수정일자</label>
+							<input type="text" class="form-control" name="mody_date" value="{{x.mody_date}}"/><br>
+							<label>비고</label>
+							<textarea class="form-control" name="note">{{x.note}}</textarea><br>
+							<label>등록자</label>
+							<input type="text" class="form-control" name="user_id" value="{{x.user_id}}"/><br>
+					
+						</div>
+					
+						<br><br><br>	
+							<div class="modal-footer">
+							<a href="#" data-dismiss="modal" class="btn">Close</a> 
+							<input type="submit" class="btn btn-primary" value="완료" id="update"/>
+							
+							</form>	
 						</div>
 					</div>
 				</div>
 			</div>
 			
+		</div>
+	</div>
 			
 			
 			
@@ -325,6 +409,66 @@ margin: 19px 28px;
 					});
 			
 
-			</script> 			
+			</script>
+			
+			<script type="text/javascript">
+		$("#insert").on('click', function(){
+			if($("#ip").val()==""){
+				alert("ip를 입력해 주세요");
+				$("#ip").focus();
+				return false;
+			}
+			if($("#mask").val()==""){
+				alert("mask를 입력해 주세요");
+				$("#mask").focus();
+				return false;
+			}
+			if($("#usages").val()==""){
+				alert("용도(부서)를 입력해 주세요");
+				$("#usages").focus();
+				return false;
+			}
+			if($("#equipment").val()==""){
+				alert("장비(사용자)를 입력해 주세요");
+				$("#equipment").focus();
+				return false;
+			}
+		
+			if($("#use_dept").val()==""){
+				alert("사용부서를 입력해 주세요");
+				$("#use_dept").focus();
+				return false;
+			}
+			if($("#per_date").val()==""){
+				alert("승인일자 입력해 주세요");
+				$("#per_date").focus();
+				return false;
+			}
+			
+			if($("#category").val()=="전체"){
+				if($("#mask").val()<1 || $("#mask").val()>27){
+					alert("mask는 1~27만 허용됩니다.");
+					$("#mask").focus();
+					return false;
+				}
+			}
+			if($("#category").val()=="대역"){
+				if($("#mask").val()<24 || $("#mask").val()>34){
+					alert("mask는 24~34만 허용됩니다.");
+					$("#mask").focus();
+					return false;
+				}
+			}
+			if($("#category").val()=="host"){
+				if($("#mask").val()!=32){
+					alert("mask는 32만 허용됩니다.");
+					$("#mask").focus();
+					return false;
+				}
+			}
+		});
+		
+
+		</script> 			
 </body>
 </html>

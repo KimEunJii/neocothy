@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SecureBoardMapper">
+	<resultMap id="secureBoardSelectMap" type="SecureBoardVo">
+		<result property="id"		column="id"			jdbcType="NUMERIC"/>
+		<result property="regDate" 	column="reg_date" 	jdbcType="VARCHAR"/>
+		<result property="category"	column="category" 	jdbcType="VARCHAR" />
+		<result property="title" 	column="title" 	jdbcType="VARCHAR" />
+		<result property="contents" column="contents" 		jdbcType="VARCHAR" />
+		<result property="note" 	column="note" 		jdbcType="VARCHAR" />
+		<result property="userId" 	column="user_id" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="insertSecureBoard"		parameterType="SecureBoardVo" >
+	 	INSERT INTO secure_board (id , reg_date, category , title , contents, note, user_id) VALUES (0,SYSDATE(),#{category},#{title},#{contents},#{note},#{userId})
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getSecureBoard"	parameterType="int"	resultMap="secureBoardSelectMap">
+		SELECT id,reg_date,category,title,contents,note,user_id		
+		FROM secure_board
+		WHERE id = #{value}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateSecureBoard"	parameterType="SecureBoardVo" >
+	   	UPDATE secure_board
+	   	<set>
+			category	= #{category},
+			title 		= #{title} ,
+			contents	= #{contents},
+			note 		= #{note}
+	   	</set>
+	   	WHERE id = #{id}
+	 </update>
+	 
+	 <!-- SQL : DELETE -->
+	 <delete	id="deleteSecureBoard"	parameterType="int" >
+	   	delete from secure_board WHERE id = #{value}
+	 </delete>
+		 
+	<!-- SQL : SELECT LIST -->
+
+	<select  id="getSecureBoardList" parameterType="SecureBoardVo" resultMap="secureBoardSelectMap">
+	  	SELECT *
+	  	FROM secure_board
+	 </select>
+	
+	  
+	   <!-- SQL : SELECT LIST 
+	<select  id="getSecureBoardList" parameterType="search" resultMap="secureBoardSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , @ROWNUM:=@ROWNUM+1 AS row_seq
+	  					FROM	(select @ROWNUM:=0)a,	(	SELECT *
+											FROM secure_board
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				reg_date like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				user_id like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				category like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 3 and searchKeyword !='' ">
+										 				title like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 4 and searchKeyword !='' ">
+										 				contents like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 5 and searchKeyword !='' ">
+										 				note like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+												</where>
+											</if>
+											ORDER BY id ) inner_table
+						WHERE @ROWNUM &lt; 3 ) outer_table
+		WHERE row_seq BETWEEN 1 AND 3
+	 </select>
+	  -->
+	  
+	  <!-- SQL : SELECT LIST -->
+	  <!-- 
+	<select  id="getSecureBoardList" parameterType="search" resultMap="secureBoardSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT *
+											FROM secure_board
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				reg_date like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				user_id like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				category like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 3 and searchKeyword !='' ">
+										 				title like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 4 and searchKeyword !='' ">
+										 				contents like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+													<if test="searchCondition == 5 and searchKeyword !='' ">
+										 				note like CONCAT('%', #{searchKeyword}, '%')
+													</if>
+												</where>
+											</if>
+											ORDER BY id ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	 </select>
+	  -->
+	 <!-- SQL : SELECT ROW Count -->
+	 <!-- 	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT *
+						FROM secure_board
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
+									reg_date like CONCAT('%', #{searchKeyword}, '%')
+								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+									category like CONCAT('%', #{searchKeyword}, '%')
+								</if>
+								<if test="searchCondition == 2 and searchKeyword !='' ">
+									title like CONCAT('%', #{searchKeyword}, '%')
+								</if>
+								<if test="searchCondition == 3 and searchKeyword !='' ">
+									contents like CONCAT('%', #{searchKeyword}, '%')
+								</if>
+								<if test="searchCondition == 4 and searchKeyword !='' ">
+									note like CONCAT('%', #{searchKeyword}, '%')
+								</if>
+								<if test="searchCondition == 5 and searchKeyword !='' ">
+									user_id like CONCAT('%', #{searchKeyword}, '%')
+								</if>
+							</where>
+						</if> ) countTable			
+	 </select>
+	  -->
+
+</mapper>

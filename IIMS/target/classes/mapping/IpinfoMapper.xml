@@ -67,6 +67,13 @@
 		]]> 
 	 </select>
 	 
+	 <select 	id="expiredlist"	parameterType="ipinfoVo" resultMap="ipinfoSelectMap" >
+		<![CDATA[
+		select id,category,network,ip,mask,usages,equipment,model,used,os,use_dept,user,use_term,per_date,mody_date,note,user_id from ip_info
+		where length(use_term)>0 and use_term <= date_format(now(),'%Y%m%d') and user_id = #{user_id}
+		]]> 
+	 </select>
+	 
 	 	 <select 	id="getOne"	parameterType="String"	resultMap="ipinfoSelectMap">
 		<![CDATA[
 		select *

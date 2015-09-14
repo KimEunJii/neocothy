@@ -1,5 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=euc-kr"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +9,7 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Cover Template for Bootstrap</title>
+<title>Neocothy</title>
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -23,7 +25,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
+<%
+	//out.print("<p>접속 IP : " + request.getRemoteAddr() + "</p>");
+	//out.print("<p>접속자 : " + request.getRemoteHost() + "</p>");
+	//out.print("<p>X-Forwarded-For: " + request.getHeader("x-forwarded-for") + "</p>");
+			
+	String hostAddress =  request.getRemoteAddr();
+	String hostName = request.getRemoteHost();
+	
+	session.setAttribute("hostAddress", hostAddress);
+	session.setAttribute("hostName", hostName);
+%>
 </head>
 
 <body>
@@ -73,6 +85,13 @@
 						<p>
 							Cover template for <a href="http://getbootstrap.com">Bootstrap</a>,
 							by <a href="https://twitter.com/mdo">@mdo</a>
+						</p>
+						
+						<p>
+							<%
+								out.print("<p>접속 IP : " + request.getRemoteAddr() + "</p>");
+								out.print("<p>접속자 : " + request.getRemoteHost() + "</p>");
+							%>
 						</p>
 					</div>
 				</div>

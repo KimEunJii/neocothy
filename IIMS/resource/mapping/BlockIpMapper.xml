@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BlockIpMapper">	 
+
+ 	<resultMap id="BlockIpSelectMap" type="String">
+		
+		<result property="block_ip" column="block_ip" jdbcType="VARCHAR"/>
+	
+	</resultMap>
+	
+	<select 	id="list"	 resultMap="BlockIpSelectMap" >
+		<![CDATA[
+			select *
+			from block_ip
+			
+		]]> 
+	 </select>
+	
+	
+	<select id="getOne" parameterType="String"  resultMap="BlockIpSelectMap">
+		<![CDATA[
+			select *
+			from block_ip		
+			where block_ip=#{block_ip}
+		]]> 
+	</select>
+	
+	<insert 	id="insert"		parameterType="BlockIpVo" >
+		<![CDATA[
+			insert
+			into block_ip(block_ip)
+			values (#{block_ip})
+	
+		]]>  
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+	 	<![CDATA[
+	 		DELETE FROM block_ip WHERE block_ip=#{block_ip}
+	 	]]>
+	</delete>
+	
+
+
+</mapper>

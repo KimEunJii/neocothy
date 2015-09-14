@@ -52,7 +52,7 @@
 	<insert 	id="insert"		parameterType="IpinfohistoryVo" >
 	<![CDATA[
 		insert
-		  into ip_info_history
+		  into IP_info_history
 		values (#{id}, #{category}, #{network}, #{ip}, #{mask}, #{usages}, #{equipment},
 					#{model}, #{used}, #{os}, #{use_dept}, #{user},
 					#{use_term}, #{per_date}, #{mody_date}, #{note}, #{user_id});

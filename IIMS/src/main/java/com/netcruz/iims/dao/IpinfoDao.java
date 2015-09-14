@@ -41,5 +41,9 @@ public class IpinfoDao {
 		
 		return sqlSession.selectOne("IpinfoMapper.update", vo);
 	}
+	
+	public List<IpinfoVo> getExpiredList(IpinfoVo vo){
+		return sqlSession.selectList("IpinfoMapper.expiredlist", vo);
+	}
 
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserIpMapper">	 
+
+ 	<resultMap id="UserIpSelectMap" type="UserIpVo">
+		
+		<result property="id" column="id" jdbcType="NUMERIC"/>
+		<result property="host_name" column="host_name" jdbcType="VARCHAR"/>
+		<result property="host_ip" column="host_ip" jdbcType="VARCHAR"/>
+		<result property="date" column="date" jdbcType="VARCHAR"/>
+		<result property="user_id" column="user_id" jdbcType="VARCHAR"/>
+	
+		
+	</resultMap>
+	
+	
+	<select id="list" parameterType="String"  resultMap="UserIpSelectMap">
+		<![CDATA[
+			select *
+			from user_ip		
+			order by id desc
+		]]> 
+	</select>
+	
+	<select id="getOne" parameterType="String"  resultMap="UserIpSelectMap">
+		<![CDATA[
+			select *
+			from user_ip	
+			where id= #{id}	
+		]]> 
+	</select>
+	
+	<insert 	id="insert"		parameterType="UserIpVo" >
+		<![CDATA[
+			insert
+			into user_ip(id,host_ip,host_name,reg_date,user_id)
+			values ( 0,#{host_ip},#{host_name}, sysdate(), #{user_id})
+	
+		]]>  
+	</insert>
+
+</mapper>

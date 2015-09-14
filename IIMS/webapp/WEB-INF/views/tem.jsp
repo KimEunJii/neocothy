@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=euc-kr"
-	pageEncoding="UTF-8"%>
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=euc-kr">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <title>Bootstrap 3 Admin</title>
 <meta name="generator" content="Bootply" />
@@ -13,7 +13,7 @@
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <link href="/assets/css/styles.css" rel="stylesheet">
 </head>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 	<!-- header -->
 	<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
 		<div class="container-fluid">
@@ -23,7 +23,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Dashboard</a>
+				<a class="navbar-brand" href="#">Neocothy</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -57,12 +57,12 @@
 						data-target="#userMenu">Menu
 						 <i	class="glyphicon glyphicon-chevron-down"></i></a>
 						<ul class="nav nav-stacked collapse in" id="userMenu">
-							<li class="active"><a href="/user/main.do"><i
+							<li class="active"><a href="/ipinfo/expiredlist.do"><i
 									class="glyphicon glyphicon-home"></i> HOME</a></li>
 							<li class="active"><a href="/ipinfo/list.do"><i
 									class="glyphicon glyphicon-home"></i> IP 정보관리</a></li>
-									<li class="active"><a href="/ipinfohistory/list.do"><i
-									class="glyphicon glyphicon-home"></i> IP 이력관리</a></li>
+							<li class="active"><a href="/ipinfohistory/list.do">
+							<i	class="glyphicon glyphicon-home"></i> IP 이력관리</a></li>
 							<li><a href="/address/list.do"><i
 									class="glyphicon glyphicon-envelope"></i> 긴급 연락처</a></li>
 							<li><a href="/management/work_list.do"><i
@@ -73,10 +73,14 @@
 									class="glyphicon glyphicon-user"></i> 일지 관리</a></li>
 							<li><a href="/management/maintain_list.do"><i
 									class="glyphicon glyphicon-flag"></i> 정기점검 관리</a></li>
-							<li><a href="#"><i
+							<li><a href="/libraryBoard/libraryboardlist.do"><i
 									class="glyphicon glyphicon-exclamation-sign"></i> 자료실</a></li>
-							<li><a href="#"><i class="glyphicon glyphicon-off"></i>
+							<li><a href="/secureBoard/secureboardlist.do"><i class="glyphicon glyphicon-off"></i>
 									보안계 업무관리</a></li>
+							<li><a href="/userIp/userIp.do"><i class="glyphicon glyphicon-off"></i>
+									hostIP</a></li>		
+							<li><a href="/userIp/blockIpList.do"><i class="glyphicon glyphicon-off"></i>
+									blockIP </a></li>		
 						</ul></li>
 					<li class="nav-header"><a href="#" data-toggle="collapse"
 						data-target="#menu2"> Reports <i
@@ -120,6 +124,7 @@
 					<li><a title="Add Widget" data-toggle="modal"
 						href="#addWidgetModal"><span
 							class="glyphicon glyphicon-plus-sign"></span> Add Widget</a></li>
+							<li><div id="clock"></div></li>
 				</ul>
 				<a href="#"><strong><i
 						class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
@@ -147,6 +152,7 @@
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
 							<h4 class="modal-title">Add Widget</h4>
+							
 						</div>
 						<div class="modal-body">
 							<p>Add a widget stuff here..</p>
@@ -160,5 +166,28 @@
 				</div>
 				<!-- /.modal-dalog -->
 			</div>
+			
+			
+			<!-- 실시간 시간-->		
+<script type="text/javascript">
+function printTime() { 
+	var clock = document.getElementById("clock"); 
+	var now = new Date(); 
+
+	clock.innerHTML = now.getFullYear() + "년 " + 
+	(now.getMonth()+1) + "월 " + 
+	now.getDate() + "일 " + 
+	now.getHours() + "시" + 
+	now.getMinutes() + "분" + 
+	now.getSeconds() + "초"; 
+
+	setTimeout("printTime()", 1000); 
+	} 
+
+	window.onload = function() { 
+	printTime(); 
+	}; 
+	</script> 
+			
 </body>
 </html>

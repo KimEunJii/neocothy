@@ -17,8 +17,7 @@ public class IpinfohistoryService {
 	
 	public IpinfohistoryVo registerIpinfohistory(IpinfohistoryVo vo){
 		System.out.println("IpinfohistoryService.registerIpinfohistory");
-		
-	
+			
 		ipinfohistoryDao.insert(vo);
 		return vo;
 	}

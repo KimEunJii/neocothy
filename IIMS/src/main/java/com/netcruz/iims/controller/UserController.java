@@ -1,13 +1,18 @@
 package com.netcruz.iims.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.netcruz.iims.service.UserIpService;
 import com.netcruz.iims.service.UserService;
+import com.netcruz.iims.vo.UserIpVo;
 import com.netcruz.iims.vo.UserVo;
 
 @Controller("userController")
@@ -17,21 +22,48 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	UserIpService userIpService;
+	
 	@RequestMapping("/loginForm.do")
 	public String loginForm(){
-		System.out.println("login");
+
 		return "login";
 	}
 	
 	@RequestMapping("/login.do")
-	public String getUser(String user_id, String pw, HttpSession session){
+	public String getUser(String user_id, String pw, HttpSession session,Model model) throws UnknownHostException{
 
 		UserVo userVo = userService.getUser(user_id,pw);
-		System.out.println(userVo);
-		session.setAttribute("userFlag", userVo);
-		return "redirect:/user/main.do";		
-	}
 	
+		session.setAttribute("userFlag", userVo);
+
+		String hostAddress = (String)session.getAttribute("hostAddress");
+		String hostName = (String)session.getAttribute("hostName");
+
+		String myIp = null;
+		InetAddress ipAddress = null;
+		try {
+			ipAddress = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(hostAddress.equals("0:0:0:0:0:0:0:1")){
+			myIp = ipAddress.getHostAddress(); 
+		}else{
+			myIp = hostAddress;
+		}
+		
+		IpinfoController.setUserIp(myIp, hostName);
+     	
+    	userIpService.insertUserIp(myIp,hostName,user_id);
+    	
+    
+		return "redirect:/ipinfo/expiredlist.do";		
+	}
+	/*
 	@RequestMapping("/main.do")
 	public String main(HttpSession session){
 	   
@@ -48,7 +80,7 @@ public class UserController {
 	    	else	    	
 	    		return "AlertPage";  		    		
 	}
-	
+	*/
 	 @RequestMapping(value = "/logout.do")
 	 public String logout(HttpSession session){
 	    	

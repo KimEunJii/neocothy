@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.netcruz.iims.dao.IpinfoDao;
 import com.netcruz.iims.vo.IpinfoVo;
 
@@ -43,6 +44,12 @@ public class IpinfoService {
 		
 		
 		ipinfoDao.update(vo);
+	}
+	public List<IpinfoVo> expiredIpinfoList(IpinfoVo vo){
+		System.out.println("ipinfoDao.expiredIpinfoList");
+		List<IpinfoVo> expiredIpinfoList = ipinfoDao.getExpiredList(vo);
+
+		return expiredIpinfoList;
 	}
 
 }

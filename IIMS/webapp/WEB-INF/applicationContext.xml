@@ -60,6 +60,23 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
+    
+    <!--  bean들은 file upload의 max size와 저장될 위치를 결정하게 된다. 
+    설정된 bean id는 multipartResolver라는 이름으로 지정이 되어야 되며, uploadDirResource 역시 bean의 id가 고정되어야 함. 절대 수정불가  -->
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <property name="maxUploadSize" value="2000000" />
+	</bean>
+	
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+	    <constructor-arg>
+	      <value>C:/fileupload/</value>
+	    </constructor-arg>
+	</bean>
+	
+	<!-- custom class -->
+	<!-- file Download 용도로 구현한 class -->
+	<bean class="com.netcruz.iims.common.DownloadView" id="download"></bean>
 	
 
 

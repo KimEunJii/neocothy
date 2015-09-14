@@ -1,7 +1,5 @@
 package com.netcruz.iims.vo;
 
-
-
 public class IpinfohistoryVo {
 	private int id;
 	private String category;
@@ -132,7 +130,7 @@ public class IpinfohistoryVo {
 				+ usages + ", equipment=" + equipment + ", model=" + model
 				+ ", used=" + used + ", os=" + os + ", use_dept=" + use_dept
 				+ ", user=" + user + ", use_term=" + use_term + ", per_date="
-				+ per_date + ", mody_date=" + mody_date + ", note=" + note
+				+ per_date + ", return_date=" + mody_date + ", note=" + note
 				+ ", user_id=" + user_id + "]";
 	}
 
